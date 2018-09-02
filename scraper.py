@@ -31,6 +31,8 @@ conn = sqlite3.connect('scraped.db')
 
 amount = 1000
 
+REGERINGSURL = "https://www.regeringen.se"
+
 url = f"https://www.regeringen.se/Filter/GetFilteredItems?filterType=Taxonomy&filterByType=FilterablePageBase&preFilteredCategories=2099&rootPageReference=0&page=1&pageSize={amount}&displayLimited=true&sortAlphabetically=False"
 
 contents = urllib.request.urlopen(url).read()
@@ -81,13 +83,54 @@ for htmlData in splitHtmlData:
 
 c = conn.cursor()
 
+c.execute("DROP TABLE IF EXISTS remisser;")
 c.execute('''
-	CREATE TABLE IF NOT EXISTS remisser
-	(date text, title text, url text, sender real);
+	CREATE TABLE remisser
+	(id int, date text, title text, url text, sender text);
+''')
+c.execute("DROP TABLE IF EXISTS svar;")
+c.execute('''
+	CREATE TABLE svar
+	(remiss_id int, sender text, url text);
 ''')
 
-for remiss in Remisser:
-	c.execute(f"INSERT INTO remisser VALUES ('{remiss.date}','{remiss.title}','{remiss.url}','{remiss.sender}');")
+try:
+	for index, remiss in enumerate(Remisser):
+		c.execute("INSERT INTO remisser VALUES (?, ?, ?, ?, ?);", (index+1, remiss.date, remiss.title, remiss.url, remiss.sender))
+
+		contents = html.unescape(urllib.request.urlopen(REGERINGSURL + remiss.url).read().decode('utf-8'))
+
+		contents = contents[contents.index("<main"):contents.index("</main>")]
+		contents = contents[contents.index("<ul"):contents.index("</ul>")]
+		remissAnswers = contents.strip().split("</li>")
+
+		print(str(index) + " " + remiss.url)
+
+		conn.commit()
+
+		for remissAnswer in remissAnswers:
+			remissAnswer = remissAnswer.strip()
+			if remissAnswer == "":
+				continue
+
+			try:
+				temp1 = remissAnswer[remissAnswer.index("href"):remissAnswer.index("</a>")]
+				url = temp1[temp1.index("\"")+1:temp1.index("\">")]
+				if temp1.find("(") == -1:
+					sender = temp1[temp1.index("\">")+2:]
+				else:	
+					sender = temp1[temp1.index("\">")+2:temp1.index("(")]
+
+			except Exception as e:
+				print(remissAnswer)
+				conn.commit()
+				conn.close()
+				exit()
+
+			c.execute("INSERT INTO svar VALUES (?, ?, ?);", (index + 1, sender, url))
+except Exception as e:
+	print("crashed")
+	print(e)
 
 conn.commit()
 
