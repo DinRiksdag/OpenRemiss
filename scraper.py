@@ -122,10 +122,10 @@ try:
 			try:
 				temp1 = remissAnswer[remissAnswer.index("href"):remissAnswer.index("</a>")]
 				url = temp1[temp1.index("\"")+1:temp1.index("\">")]
-				if temp1.find("(") == -1:
+				if temp1.find("(pdf") == -1:
 					sender = temp1[temp1.index("\">")+2:]
 				else:	
-					sender = temp1[temp1.index("\">")+2:temp1.index("(")]
+					sender = temp1[temp1.index("\">")+2:temp1.index("(pdf")]
 
 			except Exception as e:
 				print(remissAnswer)
