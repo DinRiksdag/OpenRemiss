@@ -100,7 +100,13 @@ try:
 
 		c.execute("INSERT INTO remisser VALUES (?, ?, ?, ?, ?);", (index+1, remiss.date, remiss.title, remiss.url, remiss.sender))
 
-		contents = html.unescape(urllib.request.urlopen(REGERINGSURL + remiss.url).read().decode('utf-8'))
+		# Since regeringens website can't handle long urls (HTTP 414) we need this try/catch
+		# We have reported this to them.
+		# The url: https://www.regeringen.se/remisser/2016/10/remiss-av-stralsakerhetsmyndighetens-rapport---regeringsuppdrag-att-utreda-effekterna-av-den-s.k.-studsvikslagens-upphavande-samt---skrivelse-med-anmalan-om-avgift-enligt-lagen-om-finansieringen-av-visst-radioaktivt-avfall/
+		try:
+			contents = html.unescape(urllib.request.urlopen(REGERINGSURL + remiss.url).read().decode('utf-8'))
+		except Exception as e:
+			continue
 
 		contents = contents[contents.index("<main"):contents.index("</main>")]
 		contents = contents[contents.index("<ul"):contents.index("</ul>")]
