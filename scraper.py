@@ -96,6 +96,8 @@ c.execute('''
 
 try:
 	for index, remiss in enumerate(Remisser):
+		print(str(index) + " " + remiss.url)
+
 		c.execute("INSERT INTO remisser VALUES (?, ?, ?, ?, ?);", (index+1, remiss.date, remiss.title, remiss.url, remiss.sender))
 
 		contents = html.unescape(urllib.request.urlopen(REGERINGSURL + remiss.url).read().decode('utf-8'))
@@ -103,8 +105,6 @@ try:
 		contents = contents[contents.index("<main"):contents.index("</main>")]
 		contents = contents[contents.index("<ul"):contents.index("</ul>")]
 		remissAnswers = contents.strip().split("</li>")
-
-		print(str(index) + " " + remiss.url)
 
 		conn.commit()
 
