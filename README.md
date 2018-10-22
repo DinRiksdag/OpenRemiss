@@ -47,11 +47,12 @@ and the [US](https://www.frontiersin.org/articles/10.3389/fdata.2018.00003/full)
 
 # First results 📊
 
-The hackathon was just one day and we realised while doing it that the quality of the "data" poorer than expected:
-- [regeringen.se](regeringen.se) only shows the last 495 remisser, the oldest one being from the 23/11/2016.
+The hackathon was just one day and we realised while doing it that the quality of the "data" was poorer than expected:
+- [regeringen.se](regeringen.se) only shows the last 894 remisser, the oldest one being from the 02/04/2015. We harvested the name and link of 23353 attached files.
 - we used the file names as the name of the organisation (for lack of something better) and although that worked most of the time,
 a lot of names include a typo (`Stockholm universitet` instead of `Stockholms universitet`), a number (`35. Stockholms universitet`)
 or something else which requires manual cleaning of the data.
+- we had no choice but to group local branches of national organisations (`LO Dalarna` becoming `LO`) and suborganisations (`Sverigesingenjörer`, `Sveriges Läkarförbund`, etc. becoming `SACO`, which explains the high number for them as they usually send their answers separately for each remiss)
 
 However, we managed to get a shortlist of organisations sorted by which answers the most to remisser,
 and we filtered it manually to show only interest groups:
@@ -60,27 +61,34 @@ and we filtered it manually to show only interest groups:
 
 | Rank | Organisation                | #  |
 | --   | --------------------------- | -- |
-| 🥇    | Svenskt näringsliv          | 34 |
-| 🥇    | Sveriges advokatsamfund     | 34 |
-| 🥉    | LO (with several names)     | 33 |
-| 4    | Företagarna                 | 29 |
-| 5    | Skogsindustrierna           | 28 |
-| 6    | Naturskyddsföreningen       | 26 |
-| 7    | Avfall Sverige              | 25 |
-| 7    | Lantbrukarnas Riksförbund   | 25 |
-| 9    | Sveriges Byggindustrier     | 23 |
-| 10   | Näringslivets Regelnämnd    | 22 |
-| 11   | Svensk Handel               | 21 |
-| 12   | Svenska Bankföreningen      | 20 |
-| 13   | Energiföretagen Sverige     | 28 |
-| 14   | Småföretagarnas Riksförbund | 17 |
-| 15   | Sparbankernas Riksförbund   | 13 |
+| 🥇   | Sveriges advokatsamfund     | 124 |
+| 🥈   | Svenskt näringsliv          | 118 |
+| 🥉   | SACO                        | 115 |
+| 4    | LO                          | 86 |
+| 5    | Företagarna                 | 80 |
+| 6    | Lantbrukarnas Riksförbund   | 73 |
+| 7    | Fastighetsägarna            | 57 |
+| 7    | Skogsindustrierna           | 54 |
+| 9    | Näringslivets Regelnämnd    | 52 |
+| 10   | Avfall Sverige              | 48 |
+| 10   | Svenska Bankföreningen      | 48 |
+| 12   | Sveriges Byggindustrier     | 47 |
+| 13   | Svenska kyrkan              | 43 |
+| 14   | Naturskyddsföreningen       | 40 |
+| 15   | Svensk Handel               | 39 |
+| 16   | Energigas Sverige           | 33 |
+| 17   | Energiföretagen Sverige     | 30 |
+| 18   | Svensk Försäkring           | 30 |
+| 19   | BIL Sweden                  | 28 |
+| 20   | Villaägarnas Riksörbund     | 28 |
 
-You can run the script yourself to get similar results.
+You can run the script yourself to get the raw data or find it in this Google [spreadsheet](https://docs.google.com/spreadsheets/d/1AIS7-yGfAPyUEFGaXg6gxAv2-7_Q2QQUTiKQJU7weNg/edit?usp=sharing). Don't hesitate to use it to make your own rankings and visualisations.
 
 ## What does that show us? 🧐
 
-Nothing spectacular but we are releasing it as a snapshot of what could be done by more people, with more structured data and more time.
+There's really no conclusion we can jump to by seeing that **Svenskt näringsliv** answers to more remisser than **LO**. But as basic as this information can be, the fact that you have to know how to code and spend a Sunday in front of a screen to access it shows us a lack of transparency.
+
+In just one day, we didn't manage to extract, clean and restructure enough data to make conclusions on which organisations the government listens to most. But we hope it will motivate others to dive into more of this data and create more robust models to answer that question and more!
 
 # How can I contribute? 🙌
 
@@ -91,7 +99,7 @@ There are 3 ways you can help:
 - if you can script, fork this project and try to fetch and analyse more data from [regeringen.se](regeringen.se)!
 Write some code to clean the data or to visualise it! 👩🏽‍💻
 - if you can't but have a profession/occupation which would benefit from having this data available (journalist, politician, researcher),
-contact the government to ask them to do it! Explain to them what you could do with it. 👨🏻‍⚕️
+contact the government to ask them to release it! Explain to them what you could do with it. 👨🏻‍⚕️
 - ask the government to reform its [offentlighetsprincip](https://sv.wikipedia.org/wiki/Offentlighetsprincipen)
 to require that any piece of public data be available online in a structured format.
 Canada, the UK or France are doing it, it's time for Sweden to catch up! 🙋🏻‍♀️
