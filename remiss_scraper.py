@@ -22,6 +22,7 @@
 
 import urllib.request
 
+from service.cleaner import Cleaner
 from service.database import Database
 from service.parser import Parser
 
@@ -41,18 +42,34 @@ parameters = {
 query_string = urllib.parse.urlencode(parameters)
 url = REGERING_QUERY_URL + query_string
 
+db = Database('remisser.db')
+
+# db.drop_tables()
+# db.create_tables()
+
+saved_remisser = db.get_all_remisser()
+nb_of_saved_remisser = len(saved_remisser)
+print(f'Found {nb_of_saved_remisser} remisser in the database.')
+
+print('Querying regeringen.se...')
 contents = urllib.request.urlopen(url).read()
 
-db = Database('remisser.db')
-db.drop_tables()
-
 parser = Parser()
+
 remisser = parser.get_remiss_list(contents)
-
 nb_of_remisser = len(remisser)
-print(f'{nb_of_remisser} remisser found.')
+print(f'Found {nb_of_remisser} remisser online.\n')
 
-for remiss in remisser:
+for index, remiss in enumerate(remisser, start=1):
+    found = False
+    for saved_remiss in saved_remisser:
+        if saved_remiss.url == remiss.url:
+            print(f'{index}/{nb_of_remisser} remiss(er) - Already saved')
+            found = True
+
+    if found:
+        continue
+
     remiss_id = db.save_remiss(remiss)
 
     contents = urllib.request.urlopen(remiss.url)
@@ -64,7 +81,15 @@ for remiss in remisser:
         db.save_remiss_file(file)
         db.commit()
     print(
-        f'{remiss_id}/{nb_of_remisser} remiss(er) - {len(files)} file(s) saved'
+        f'{index}/{nb_of_remisser} remiss(er) - {len(files)} file(s) saved'
         )
+
+saved_files = db.get_all_remiss_files()
+
+print('Cleaning filenames to get organisation name...')
+for index, file in enumerate(saved_files, start=1):
+    file.organisation = Cleaner.get_organisation_name(file.filename)
+    db.update_remiss_file(file, index)
+    db.commit()
 
 db.close()

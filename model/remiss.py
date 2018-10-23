@@ -1,9 +1,9 @@
 class Remiss(object):
 
-    def __init__(self, url, title, date, sender):
-        # super(Remiss, self).__init__()
-        self.url = url
+    def __init__(self, id, title, url, date, sender):
+        self.id = id
         self.title = title
+        self.url = url
         self.date = date
         self.sender = sender
 

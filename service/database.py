@@ -1,5 +1,8 @@
 import sqlite3
 
+from model.remiss import Remiss
+from model.remiss_file import RemissFile
+
 
 class Database(object):
     def __init__(self, path):
@@ -8,38 +11,99 @@ class Database(object):
         self.conn = sqlite3.connect(path)
         self.cursor = self.conn.cursor()
 
+        self.create_tables()
+
+    def get_all_remisser(self):
+        self.cursor.execute("SELECT * FROM remisser ORDER BY ID ASC")
+        remisser = []
+
+        for row in self.cursor.fetchall():
+            remisser.append(Remiss(row[0], row[1], row[2], row[3], row[4]))
+
+        return remisser
+
+    def get_all_remiss_files(self):
+        self.cursor.execute("SELECT * FROM files ORDER BY ID ASC")
+        files = []
+
+        for row in self.cursor.fetchall():
+            files.append(RemissFile(row[0], row[1], row[2],
+                                    row[3], row[4], row[5]))
+
+        return files
+
     def save_remiss(self, remiss):
-        self.cursor.execute("INSERT INTO remisser VALUES (?, ?, ?, ?);",
+        self.cursor.execute('''
+            INSERT INTO remisser (title, url, date, sender)
+            VALUES (?, ?, ?, ?);
+            ''',
                             (
-                                remiss.date,
                                 remiss.title,
                                 remiss.url,
+                                remiss.date,
                                 remiss.sender
                             )
                             )
         return self.cursor.lastrowid
 
-    def save_remiss_file(self, remiss_file):
-        self.cursor.execute("INSERT INTO file VALUES (?, ?, ?);",
+    def save_remiss_file(self, file):
+        self.cursor.execute('''
+            INSERT INTO files (remiss_id, filename, organisation, url, type)
+            VALUES (?, ?, ?, ?, ?);
+            ''',
                             (
-                                remiss_file.remiss_id,
-                                remiss_file.filename,
-                                remiss_file.url
+                                file.remiss_id,
+                                file.filename,
+                                file.organisation,
+                                file.url,
+                                file.type
                             )
                             )
+
+    def update_remiss_file(self, file, index):
+        self.cursor.execute('''
+            UPDATE files SET remiss_id=?,
+                             filename=?,
+                             organisation=?,
+                             url=?,
+                             type=?
+            WHERE id = ?;
+            ''',            (
+                                file.remiss_id,
+                                file.filename,
+                                file.organisation,
+                                file.url,
+                                file.type,
+                                index
+                            )
+                            )
+
+    def create_tables(self):
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS remisser
+                (
+                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    title text,
+                    url text,
+                    date text,
+                    sender text
+                );
+        ''')
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS files
+                (
+                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    remiss_id INTEGER,
+                    filename text,
+                    organisation text,
+                    url text,
+                    type text
+                );
+        ''')
 
     def drop_tables(self):
         self.cursor.execute("DROP TABLE IF EXISTS remisser;")
-        self.cursor.execute('''
-            CREATE TABLE remisser
-            (date text, title text, url text, sender text);
-        ''')
-
-        self.cursor.execute("DROP TABLE IF EXISTS file;")
-        self.cursor.execute('''
-            CREATE TABLE file
-            (remiss_id int, filename text, url text);
-        ''')
+        self.cursor.execute("DROP TABLE IF EXISTS files;")
 
     def commit(self):
         self.conn.commit()
