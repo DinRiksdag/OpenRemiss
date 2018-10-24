@@ -84,12 +84,18 @@ for index, remiss in enumerate(remisser, start=1):
         f'{index}/{nb_of_remisser} remiss(er) - {len(files)} file(s) saved'
         )
 
-saved_files = db.get_all_remiss_files()
+saved_files = db.get_all_remiss_answers()
 
 print('Cleaning filenames to get organisation name...')
 for index, file in enumerate(saved_files, start=1):
-    file.organisation = Cleaner.get_organisation_name(file.filename)
-    db.update_remiss_file(file, index)
-    db.commit()
+    if index % (len(saved_files) // 100) == 0:
+        print(
+            f'{(index + 1) * 100 // len(saved_files)} % cleaned'
+            )
+    organisation_name = Cleaner.get_organisation_name(file.filename)
+    if organisation_name != file.organisation:
+        file.organisation = organisation_name
+        db.update_remiss_file(file, file.id)
+        db.commit()
 
 db.close()

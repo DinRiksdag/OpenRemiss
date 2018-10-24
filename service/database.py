@@ -22,8 +22,14 @@ class Database(object):
 
         return remisser
 
-    def get_all_remiss_files(self):
-        self.cursor.execute("SELECT * FROM files ORDER BY ID ASC")
+    def get_all_remiss_answers(self):
+        self.cursor.execute('''
+            SELECT *
+            FROM files
+            WHERE files.type = 'answer'
+            ORDER BY ID ASC
+        ''')
+
         files = []
 
         for row in self.cursor.fetchall():
@@ -31,6 +37,22 @@ class Database(object):
                                     row[3], row[4], row[5]))
 
         return files
+
+    def get_popular_remiss_file_organisations(self):
+        self.cursor.execute('''
+            SELECT organisation,
+                   COUNT(organisation) AS num
+            FROM files
+            GROUP BY lower(organisation)
+            HAVING num >= 100
+            ORDER BY num DESC
+        ''')
+        organisation_names = []
+
+        for row in self.cursor.fetchall():
+            organisation_names.append(row[0])
+
+        return organisation_names
 
     def save_remiss(self, remiss):
         self.cursor.execute('''
@@ -60,7 +82,7 @@ class Database(object):
                             )
                             )
 
-    def update_remiss_file(self, file, index):
+    def update_remiss_file(self, file, id):
         self.cursor.execute('''
             UPDATE files SET remiss_id=?,
                              filename=?,
@@ -74,7 +96,7 @@ class Database(object):
                                 file.organisation,
                                 file.url,
                                 file.type,
-                                index
+                                id
                             )
                             )
 
