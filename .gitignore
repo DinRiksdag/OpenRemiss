@@ -1,4 +1,6 @@
 *.db
 *.db-journal
-
+*.pdf
 __pycache__
+env/
+.DS_Store

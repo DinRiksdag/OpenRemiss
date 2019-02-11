@@ -1,0 +1,7 @@
+beautifulsoup4==4.6.3
+flask==1.0.2
+flask-graphQL==2.0.0
+graphene_sqlalchemy==2.1.0
+pdfminer.six==20181108
+sqlalchemy==1.2.15
+urllib3==1.23

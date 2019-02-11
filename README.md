@@ -102,6 +102,6 @@ Write some code to clean the data or to visualise it! 👩🏽‍💻
 contact the government to ask them to release it! Explain to them what you could do with it. 👨🏻‍⚕️
 - ask the government to reform its [offentlighetsprincip](https://sv.wikipedia.org/wiki/Offentlighetsprincipen)
 to require that any piece of public data be available online in a structured format.
-Canada, the UK or France are doing it, it's time for Sweden to catch up! 🙋🏻‍♀️
+Canada, the UK, Germany or France are doing it, it's time for Sweden to catch up! 🙋🏻‍♀️
 
 And don't hesitate to contact us, we love hearing from opengov enthusiasts! ❤️
