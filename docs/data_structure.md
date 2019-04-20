@@ -24,7 +24,7 @@ To be able to store this information in a structured way, we use a SQL database 
 
 Here is a UML diagram of the classes used in the Python script. Note the inheritance, which means that you will have to join several tables to get all the desired columns.
 
-<img src='./data_structure.svg'/>
+<img src='./data_structure.png'/>
 
 ## Extract data from the Database
 
