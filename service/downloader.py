@@ -31,7 +31,6 @@ class Downloader(object):
 
         return WebParser.get_document_list(remiss.id, contents)
 
-
     @staticmethod
     def get(url):
         try:

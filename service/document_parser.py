@@ -9,7 +9,6 @@ from io import BytesIO
 from service.web_parser import WebParser
 from service.cleaner import Cleaner
 
-from database.consultee_list import ConsulteeList
 from database.consultee import Consultee
 
 

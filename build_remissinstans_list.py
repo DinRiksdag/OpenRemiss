@@ -22,10 +22,12 @@ saved_documents = Document.query.filter(Document.type == 'consultee_list')
 
 for document in saved_documents:
     if not RESET_DB and document.consultee_list != []:
-        print(f'Consultees for remiss {document.remiss_id} already in database.')
+        print(f'Consultees for remiss {document.remiss_id} already saved.')
         continue
     elif RESET_DB:
-        Consultee.query.filter(Consultee.consultee_list_id == document.id).delete()
+        Consultee.query.filter(
+                Consultee.consultee_list_id == document.id
+                              ).delete()
 
     filepath = f'tmp/{document.remiss_id}/{document.id}.pdf'
 
@@ -47,11 +49,11 @@ for document in saved_documents:
     try:
         list = DocumentParser.extract_list(fp)
     except (PDFTextExtractionNotAllowed, PDFSyntaxError):
-        print(f'Document for Remiss {document.remiss_id} could not be extracted.')
+        print(f'Document for Remiss {document.remiss_id} was not extracted.')
         continue
 
     if not list:
-        print(f'Document for Remiss {document.remiss_id} could not be extracted.')
+        print(f'Document for Remiss {document.remiss_id} was not extracted.')
         continue
 
     document.consultee_list = list

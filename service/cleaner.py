@@ -1,3 +1,6 @@
+from service.database import Database
+
+
 class Cleaner(object):
 
     @staticmethod
@@ -10,12 +13,12 @@ class Cleaner(object):
 
     @staticmethod
     def replace_by_popular_contained(text):
-        db = [] #Database('remisser.db')
-        popular_org_names = Database.get_popular_remiss_file_organisations()
+        q = Database.get_popular_organisation_names(100)
+        popular_org_names = [r[0] for r in q]
 
         for popular_org_name in popular_org_names:
             if popular_org_name in text and popular_org_name != text:
-                # print(f'{text} -> {popular_org_name}')
+                print(f'{text} -> {popular_org_name}')
                 text = popular_org_name
                 break
         return text
@@ -23,7 +26,7 @@ class Cleaner(object):
     @staticmethod
     def get_organisation_name(text):
         text = Cleaner.remove_leading_numbers(text)
-        #text = Cleaner.replace_by_popular_contained(text)
+        text = Cleaner.replace_by_popular_contained(text)
         return text
 
     @staticmethod
@@ -42,3 +45,14 @@ class Cleaner(object):
                or 'Remiss-PM' in filename
                or 'Remiss av' in filename
                or 'Inbjudan' in filename)
+
+    @staticmethod
+    def long_substr(data):
+        substr = ''
+        if len(data) > 1 and len(data[0]) > 0:
+            for i in range(len(data[0])):
+                for j in range(len(data[0])-i+1):
+                    if (j > len(substr)
+                            and all(data[0][i:i+j] in x for x in data)):
+                        substr = data[0][i:i+j]
+        return substr

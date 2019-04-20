@@ -31,7 +31,10 @@ class WebParser(object):
             link = block.select('a[href^=/remisser]')
 
             if len(link) == 0:
-                break
+                link = block.select('a[href^=/rapporter]')
+
+            if len(link) == 0:
+                continue
 
             link = link[0]
 
@@ -48,7 +51,8 @@ class WebParser(object):
                             title=title,
                             url=url)
             remisser.append(remiss)
-            remisser.reverse()
+
+        remisser.reverse()
         return remisser
 
     @staticmethod

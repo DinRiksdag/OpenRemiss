@@ -13,3 +13,4 @@ class Consultee(Base):
     consultee_list = relationship('ConsulteeList',
                                   back_populates='consultee_list')
     name = Column(String)
+    cleaned_name = Column(String)

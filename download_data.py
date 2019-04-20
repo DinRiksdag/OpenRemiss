@@ -4,7 +4,7 @@ from service.database import Database
 from database.remiss import Remiss
 
 AMOUNT = 1000
-RESET_DB = False
+RESET_DB = True
 
 if RESET_DB:
     Database.drop_tables()
