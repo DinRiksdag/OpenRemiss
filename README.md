@@ -5,7 +5,9 @@ It was written by [Emil Hemdal](https://github.com/emilhem), Albin and [Pierre M
 
 This is a script that scraps data from [regeringen.se](regeringen.se).
 For now, it only looks for [remisser](https://sv.wikipedia.org/wiki/Remiss),
-lists them and builds a list of all the organisations that have answered each remiss.
+lists them and builds a dataset containing information about these remissprocesses.
+
+You can read more on how to run the script and which data it saves.
 
 The result is saved in an SQL database.
 
@@ -47,6 +49,7 @@ and the [US](https://www.frontiersin.org/articles/10.3389/fdata.2018.00003/full)
 
 # First results 📊
 
+** EDIT: The script has now been improved and you can find better updated results in this [spreadsheet](https://docs.google.com/spreadsheets/d/1AIS7-yGfAPyUEFGaXg6gxAv2-7_Q2QQUTiKQJU7weNg/edit?usp=sharing).**
 The hackathon was just one day and we realised while doing it that the quality of the "data" was poorer than expected:
 - [regeringen.se](regeringen.se) only shows the last 894 remisser, the oldest one being from the 02/04/2015. We harvested the name and link of 23353 attached files.
 - we used the file names as the name of the organisation (for lack of something better) and although that worked most of the time,
