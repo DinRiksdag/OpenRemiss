@@ -3,19 +3,21 @@ from service.database import Database
 
 from database.remiss import Remiss
 
-AMOUNT = 1000
-RESET_DB = True
+AMOUNT = 3000
+RESET_DB = False
 
 if RESET_DB:
     Database.drop_tables()
     Database.create_tables()
     print(f'I-0 - Recreated database.\n')
 
+downloader = Downloader()
+
 saved_remisser = Remiss.query.all()
 print(f'I-1 - Found {len(saved_remisser)} remisser in the database.\n')
 
 print('Querying regeringen.se...')
-remisser = Downloader.get_last_remisser(AMOUNT)
+remisser = downloader.get_last_remisser(AMOUNT)
 
 nb_of_remisser = len(remisser)
 print(f'I-2 - Found {nb_of_remisser} remisser online.\n')
@@ -36,7 +38,7 @@ for index, online_remiss in enumerate(remisser, start=1):
     Database.add(online_remiss)
     Database.flush()
 
-    documents = Downloader.get_documents(online_remiss)
+    documents = downloader.get_documents(online_remiss)
 
     for doc in documents:
         Database.add(doc)

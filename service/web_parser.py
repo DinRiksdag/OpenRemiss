@@ -17,21 +17,25 @@ REGERING_URL = 'https://www.regeringen.se'
 class WebParser(object):
 
     @staticmethod
+    def get_remiss_amount(response):
+        htmlData = html.unescape(response.decode('utf-8'))
+        soup = BeautifulSoup(htmlData, 'html.parser')
+
+        amount = soup.select_one('strong[class==filterHitCount]')
+        return int(amount.text)
+
+    @staticmethod
     def get_remiss_list(response):
         remisser = []
 
-        jsonData = json.loads(response)
-        htmlData = jsonData['Message']
-        htmlData = html.unescape(htmlData)
-
-        soup = BeautifulSoup(htmlData, 'html.parser')
+        soup = BeautifulSoup(response['Message'], 'html.parser')
         blocks = soup.select('div[class=sortcompact]')
 
         for block in blocks:
-            link = block.select('a[href^=/remisser]')
+            link = block.select('a[href^="/remisser"]')
 
             if len(link) == 0:
-                link = block.select('a[href^=/rapporter]')
+                link = block.select('a[href^="/rapporter"]')
 
             if len(link) == 0:
                 continue
@@ -59,8 +63,7 @@ class WebParser(object):
     def get_document_list(remiss_id, response):
         documents = []
 
-        htmlData = html.unescape(response.decode('utf-8'))
-        soup = BeautifulSoup(htmlData, 'html.parser')
+        soup = BeautifulSoup(response, 'html.parser')
         list = soup.select('ul[class=list--Block--icons]')
 
         def create_document(link):

@@ -14,15 +14,16 @@ class Remiss(Content):
     consultees = relationship(
                               'ConsulteeList',
                               back_populates='remiss',
-                              foreign_keys='ConsulteeList.remiss_id',
-                              uselist=False
+                              uselist=False,
+                              viewonly=True
                               )
     answers = relationship(
                            'Answer',
                            back_populates='remiss',
-                           foreign_keys='Answer.remiss_id'
+                           viewonly=True
                            )
-    other_documents = relationship('Document', back_populates='remiss')
+    other_documents = relationship('Document', back_populates='remiss',
+    viewonly=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'remiss',
