@@ -1,5 +1,4 @@
-from pdfminer.pdfpage import PDFTextExtractionNotAllowed
-from pdfminer.pdfparser import PDFSyntaxError
+import urllib
 
 from database.document import Document
 from database.consultee import Consultee
@@ -8,7 +7,6 @@ from service.downloader import Downloader
 from service.document_parser import DocumentParser
 from service.database import Database
 from service.file_manager import FileManager
-from io import BytesIO
 
 RESET_DB = False
 RESET_FILES = False
@@ -33,35 +31,31 @@ for document in saved_documents:
 
     if RESET_FILES or not FileManager.filepath_exists(filepath):
         try:
-            f = Downloader.get(document.files[0].url)
+            tmp_filepath = Downloader().get_file(document.files[0].url)
         except urllib.error.HTTPError:
             print(f'404: File for Remiss {document.remiss_id} not found.')
 
-        if f is not None:
-            fp = BytesIO(f)
-            FileManager.write_to_filepath(filepath, f)
+        if tmp_filepath is not None:
+            FileManager.move(tmp_filepath, filepath)
 
     if FileManager.filepath_exists(filepath):
-        fp = FileManager.get_filepath(filepath)
+        f = FileManager.get_filepath(filepath)
     else:
+        print('File could not be found.')
         continue
 
-    try:
-        list = DocumentParser.extract_list(fp)
-    except (PDFTextExtractionNotAllowed, PDFSyntaxError):
+    consultee_list = DocumentParser.extract_list(filepath)
+
+    if not consultee_list:
         print(f'Document for Remiss {document.remiss_id} was not extracted.')
         continue
 
-    if not list:
-        print(f'Document for Remiss {document.remiss_id} was not extracted.')
-        continue
+    consultee_list = [Consultee(name=consultee) for consultee in consultee_list]
 
-    document.consultee_list = list
+    document.consultee_list = consultee_list
 
     Database.commit()
 
-    print(f'Saved {len(list)} organisations for remiss {document.remiss_id}')
-
-    fp.close()
+    print(f'Saved {len(consultee_list)} organisations for remiss {document.remiss_id}')
 
 Database.close()

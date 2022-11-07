@@ -27,7 +27,6 @@ class Downloader(object):
         return response['TotalCount']
 
     def get_last_remisser(self, amount):
-
         if amount > 1000:
             page_size = 1000
         else:
@@ -50,3 +49,6 @@ class Downloader(object):
     def get_documents(self, remiss):
         contents = self.d.get(remiss.url)
         return WebParser.get_document_list(remiss.id, contents)
+
+    def get_file(self, file_url):
+        return self.d.get_file(file_url)

@@ -98,38 +98,3 @@ class WebParser(object):
                 documents.append(document)
 
             return documents
-
-    @staticmethod
-    def get_remiss_instanser(pdf):
-        instanser = []
-
-        htmlData = html.unescape(pdf)
-
-        soup = BeautifulSoup(htmlData, 'html.parser')
-
-        for e in soup.findAll('br'):
-            e.extract()
-
-        remiss_instanser_div = [tag for tag in soup.findAll('div')
-                                if 'Remissinstanser' in tag.text][0]
-        remissvaren_span = [tag for tag in soup.findAll('span')
-                            if 'Remissvaren' in tag.text][0]
-
-        first_instans_span = remiss_instanser_div.next_sibling.contents[0]
-
-        instans_attributes = first_instans_span.attrs
-
-        span_list = soup.find_all(attrs=instans_attributes)
-
-        if remissvaren_span not in span_list:
-            print(f'List format is not supported (yet).')
-            return
-
-        span_list = span_list[:span_list.index(remissvaren_span)]
-
-        for instans_span in span_list:
-            organisation = Cleaner.remove_line_breaks(instans_span.contents[0])
-            organisation = organisation.strip()
-
-            instanser.append(organisation)
-        return instanser
