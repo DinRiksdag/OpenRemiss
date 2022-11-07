@@ -9,4 +9,5 @@ webdriver-manager==3.8.4
 packaging==21.3
 fake-useragent==0.1.11
 tabula-py==2.5.1
+pytest==7.2.0
 rapidfuzz==2.13.2
