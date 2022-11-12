@@ -161,9 +161,25 @@ def test_with_pdf_3():
     # Kulturdepartementet/2019
     assert_document_parser_size('tmp/3/97.pdf', 90)
 
+def test_with_pdf_4():
+    # Kulturdepartementet/2019
+    assert_document_parser_size('tmp/4/162-ocr.pdf', 275)
+
+def test_with_pdf_84():
+    # Finansdepartementet/2020
+    assert_document_parser_size('tmp/84/3365.pdf', 49)
+
+def test_with_pdf_158():
+    # Finansdepartementet/2020
+    assert_document_parser_size('tmp/158/6290.pdf', 162)
+
 def test_with_pdf_162():
     # Finansdepartementet/2020
     assert_document_parser_size('tmp/162/6477.pdf', 29)
+
+def test_with_pdf_174():
+    # Finansdepartementet/2020
+    assert_document_parser_size('tmp/174/6902.pdf', 37)
 
 def test_with_pdf_187():
     # Utbildningsdepartementet/2020
@@ -177,6 +193,10 @@ def test_with_pdf_255():
     # Infrastrukturdepartementet/2020
     assert_document_parser_size('tmp/255/10204.pdf', 13)
 
+def test_with_pdf_271():
+    # Miljö- och energidepartementet/2019
+    assert_document_parser_size('tmp/271/10795.pdf', 154)
+
 def test_with_pdf_305():
     # Infrastrukturdepartementet/2020
     assert_document_parser_size('tmp/305/12211.pdf', 8)
@@ -189,6 +209,10 @@ def test_with_pdf_452():
     # Kulturdepartementet/2020
     assert_document_parser_size('tmp/452/18629.pdf', 88)
 
+def test_with_pdf_554():
+    # Försvarsdepartementet/2021
+    assert_document_parser_size('tmp/554/23075.pdf', 11)
+
 def test_with_pdf_642():
     # Justitiedepartementet/2021
     assert_document_parser_size('tmp/642/26836.pdf', 50)
@@ -197,9 +221,21 @@ def test_with_pdf_885():
     # Justitiedepartementet/2022
     assert_document_parser_size('tmp/885/37864.pdf', 25)
 
+def test_with_pdf_1057():
+    # Justitiedepartementet/2015
+    assert_document_parser_size('tmp/1057/43258-ocr.pdf', 31)
+
+def test_with_pdf_1073():
+    # Näringsdepartementet/2015
+    assert_document_parser_size('tmp/1073/43584-ocr.pdf', 77)
+
 def test_with_pdf_1114():
     # Miljö- och energidepartementet/2015
     assert_document_parser_size('tmp/1114/44311.pdf', 16)
+
+def test_with_pdf_1201():
+    # Justitiedepartementet/2015
+    assert_document_parser_size('tmp/1201/46516-ocr.pdf', 29)
 
 def test_with_pdf_1259():
     # Finansdepartementet/2016

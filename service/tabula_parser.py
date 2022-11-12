@@ -14,7 +14,7 @@ class TabulaParser(object):
             )
         except subprocess.CalledProcessError as e:
             print(f'Document {filename} was most probably not a PDF')
-            return []
+            return None
 
     @staticmethod
     def extract_header(filename):
@@ -32,7 +32,7 @@ class TabulaParser(object):
         return TabulaParser.extract(
             filename,
             1,
-            [230, 70, 760, 500] # List
+            [160, 70, 800, 500] # List
             )
 
     @staticmethod
@@ -40,6 +40,6 @@ class TabulaParser(object):
         df = TabulaParser.extract(
             filename,
             'all',
-            [70, 70, 760, 500] # List
+            [70, 70, 800, 500] # List
             )
-        return df[1:] if df else []
+        return df[1:] if df != None else None

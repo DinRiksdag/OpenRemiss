@@ -48,6 +48,7 @@ class Selenium_Driver(object):
 
         if 'Sidan kan inte hittas' in self.d.title:
             print(f'404: Could not download file from {url}')
+            return None
 
         filename = url.split('/')[-1]
         filepath = 'tmp/' + filename

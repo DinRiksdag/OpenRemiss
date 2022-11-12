@@ -10,6 +10,7 @@ from service.file_manager import FileManager
 
 RESET_DB = False
 RESET_FILES = False
+RESET_OCR = False
 
 if RESET_DB:
     Database.delete_all(Consultee)
@@ -38,13 +39,15 @@ for document in saved_documents:
         if tmp_filepath is not None:
             FileManager.move(tmp_filepath, filepath)
 
-    if FileManager.filepath_exists(filepath):
-        f = FileManager.get_filepath(filepath)
-    else:
-        print('File could not be found.')
-        continue
+    if not RESET_OCR:
+        ocr_filepath = filepath.replace('.pdf', '-ocr.pdf')
 
-    consultee_list = DocumentParser.extract_list(filepath)
+        if FileManager.filepath_exists(ocr_filepath):
+            print('Found an OCRed version, using it instead.')
+            filepath = ocr_filepath
+
+    if FileManager.filepath_exists(filepath):
+        consultee_list = DocumentParser.extract_list(filepath)
 
     if not consultee_list:
         print(f'Document for Remiss {document.remiss_id} was not extracted.')
