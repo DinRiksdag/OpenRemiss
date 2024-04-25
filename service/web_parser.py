@@ -1,4 +1,3 @@
-import json
 import html
 from bs4 import BeautifulSoup
 from datetime import datetime

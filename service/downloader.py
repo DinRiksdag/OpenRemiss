@@ -8,6 +8,7 @@ REGERING_QUERY_URL = REGERING_URL + '/Filter/GetFilteredItems?'
 
 def parameters(page_size, page_number):
     params = {
+            'lang': 'sv',
             'filterType': 'Taxonomy',
             'preFilteredCategories': 2099,
             'displayLimited': 'true',

@@ -8,10 +8,6 @@ class FileManager(object):
         return os.path.exists(filepath)
 
     @staticmethod
-    def get_filepath(filepath):
-        return open(filepath, 'rb')
-
-    @staticmethod
     def move(old_filepath, new_filepath):
         dirpath = os.path.dirname(new_filepath)
         if not os.path.exists(dirpath):

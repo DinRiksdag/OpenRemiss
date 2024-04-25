@@ -1,14 +1,29 @@
 from service.database import Database
 from service.cleaner import Cleaner
+from service.file_manager import FileManager
+import service.wikidata as wikidata
 from database.remiss import Remiss
 from database.answer import Answer
 from database.document import Document
 from database.consultee import Consultee
+from database.file import File
+from database.consultee_list import ConsulteeList
+
+import pandas as pd
 
 saved_remisser = Remiss.query.all()
 saved_answers = Answer.query.all()
 
-RESET_DB = False
+RESET_DB = True
+RESET_WIKIDATA = False
+# GOV_LIST = 'tmp/government_organisations.csv'
+# if RESET_WIKIDATA or FileManager.filepath_exists(GOV_LIST):
+#     gov_orgs = wikidata.get_government_organisations()
+#     pd.DataFrame(gov_orgs, columns=['organisation']).to_csv(GOV_LIST)
+
+# gov_list = pd.read_csv(GOV_LIST)['organisation'].to_list()
+
+# print(gov_list)
 
 print('II-1 Light cleaning file names...')
 for remiss_index, remiss in enumerate(saved_remisser, start=1):

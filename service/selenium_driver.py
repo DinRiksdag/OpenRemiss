@@ -51,7 +51,7 @@ class Selenium_Driver(object):
             return None
 
         filename = url.split('/')[-1]
-        filepath = 'tmp/' + filename
+        filepath = filename
 
         print(f'Downloaded {filename}')
         return filepath

@@ -8,7 +8,7 @@ import os
 db_name = 'database.db'
 db_path = os.path.join(os.path.dirname(__file__), db_name)
 db_uri = 'sqlite:///{}'.format(db_path)
-engine = create_engine(db_uri, convert_unicode=True)
+engine = create_engine(db_uri)
 
 # Declarative base model to create database tables and classes
 Base = declarative_base()

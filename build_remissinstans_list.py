@@ -8,6 +8,8 @@ from service.document_parser import DocumentParser
 from service.database import Database
 from service.file_manager import FileManager
 
+import sqlalchemy
+
 RESET_DB = False
 RESET_FILES = False
 RESET_OCR = False
@@ -15,7 +17,7 @@ RESET_OCR = False
 if RESET_DB:
     Database.delete_all(Consultee)
     Database.commit()
-    print(f'Emptied the consultee table.\n')
+    print('Emptied the consultee table.\n')
 
 saved_documents = Document.query.filter(Document.type == 'consultee_list')
 
@@ -56,8 +58,10 @@ for document in saved_documents:
     consultee_list = [Consultee(name=consultee) for consultee in consultee_list]
 
     document.consultee_list = consultee_list
-
-    Database.commit()
+    try:
+        Database.commit()
+    except sqlalchemy.exc.InterfaceError:
+        print(consultee_list)
 
     print(f'Saved {len(consultee_list)} organisations for remiss {document.remiss_id}')
 

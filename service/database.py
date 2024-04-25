@@ -1,10 +1,10 @@
 from sqlalchemy import func
+from sqlalchemy.sql.functions import coalesce
 
 from database.answer import Answer
+from database.consultee import Consultee
 
 from database import base
-from database import answer, consultee_list, consultee, content, document, file, remiss
-
 
 class Database(object):
 
@@ -32,6 +32,9 @@ class Database(object):
     def delete_all(table):
         table.query.delete()
 
+    def empty_column(table, column):
+        table.query.update({column: None})
+
     @staticmethod
     def flush():
         base.db_session.flush()
@@ -49,7 +52,7 @@ class Database(object):
         base.db_session.close()
 
     @staticmethod
-    def get_popular_organisation_names(amount):
+    def get_popular_answering_organisations(amount):
         return base.db_session.query(
                             Answer.organisation,
                             func.count(Answer.organisation)
@@ -59,4 +62,23 @@ class Database(object):
                             func.count(Answer.organisation).desc()
                         ).limit(
                             amount
+                        ).all()
+
+    def __best_names(best_name):
+        return base.db_session.query(
+                            best_name,
+                            func.count(best_name)
+                        ).group_by(
+                            best_name
+                        )
+
+    @staticmethod
+    def get_popular_names(percent):
+        best_name = coalesce(Consultee.cleaned_name, Consultee.cleaned_name)
+        best_names = Database.__best_names()
+
+        return best_names.order_by(
+                            func.count(best_name).asc()
+                        ).limit(
+                            int(best_names.count() * percent / 100)
                         ).all()

@@ -14,7 +14,7 @@ class DocumentParser(object):
         first_page = TabulaParser.extract_first_page(filename)
         next_pages = TabulaParser.extract_next_pages(filename)
 
-        if first_page == None and next_pages == None:
+        if first_page is None and next_pages is None:
             return
 
         all_pages = first_page + next_pages
@@ -122,7 +122,15 @@ class DocumentParser(object):
         i = 0
         while i < len(rows):
             row = rows[i]
-            words = ['telefonväxel', 'postadress', 'fax:', 'besöksadress', '08-405', 'webb:', '33 st']
+            words = [
+                'telefonväxel',
+                'postadress',
+                'fax:',
+                'besöksadress',
+                '08-405',
+                'webb:',
+                '33 st'
+                ]
 
             if any(word in str(row).lower() for word in words):
                 del rows[i]
@@ -205,7 +213,8 @@ class DocumentParser(object):
     def remove_last_paragraph(rows):
         for i, s in enumerate(rows):
             if len(s.split()) >= 17:
-                if '(' not in s or ')' not in s or len(s[s.index('('):s.index(')')]) / len(s) < 0.5:
+                if ('(' not in s or ')' not in s
+                    or len(s[s.index('('):s.index(')')]) / len(s) < 0.5):
                     return rows[:i]
 
         return rows
