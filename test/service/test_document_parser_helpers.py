@@ -1,6 +1,26 @@
 import pytest
+import pandas as pd
 
 from service.document_parser import DocumentParser
+from service.tabula_parser import TabulaParser
+
+
+def test_extracts_names_from_tabula_dataframes(monkeypatch):
+    first_page = pd.DataFrame(
+        {
+            "numbers": [None, 1, None],
+            "names": ["Remissinstanser", "Göteborgs universitet", None],
+        }
+    )
+    next_page = pd.DataFrame({"names": ["2. Barnombudsmannen"], "empty": [None]})
+    monkeypatch.setattr(TabulaParser, "extract_first_page", lambda path: [first_page])
+    monkeypatch.setattr(TabulaParser, "extract_next_pages", lambda path: [next_page])
+    monkeypatch.setattr(DocumentParser, "has_scanned_pages", lambda path, pages: False)
+
+    assert DocumentParser.extract_list("example.pdf") == [
+        "Göteborgs universitet",
+        "Barnombudsmannen",
+    ]
 
 
 @pytest.mark.parametrize("heading", ["Remissinstanser", "Sändlista"])

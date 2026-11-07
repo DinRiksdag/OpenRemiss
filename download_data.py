@@ -1,16 +1,11 @@
-from database import base
-from service.database import Database
 from service.downloader import Downloader
 from service.importer import sync_remisser
+from service.storage import DATA_DIR
 
 
-def main():
+def main(data_dir=DATA_DIR):
     print("Downloading consultation metadata from g0v.se...")
-    items = Downloader.get_remisser()
-    codes = Downloader.get_codes()
-    Database.create_tables()
-    with base.db_session() as session, session.begin():
-        count = sync_remisser(items, codes, session)
+    count = sync_remisser(Downloader.get_remisser(), Downloader.get_codes(), data_dir)
     print(f"Imported {count} consultations from g0v.se.")
 
 

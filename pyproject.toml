@@ -6,22 +6,19 @@ readme = "README.md"
 # Keep the legacy dependency stack on a tested Python minor version.
 requires-python = ">=3.11,<3.12"
 dependencies = [
-    "numpy>=1.23,<2",
     "ocrmypdf==14.1.0",
     "packaging==23.1",
-    "pandas>=1.5,<3",
+    "pandas>=3.1.1,<4",
     "pdf2image",
     # OCRmyPDF uses this maintained fork; do not also install pdfminer,
     # which writes to the same Python namespace.
     "pdfminer-six",
     # 8.x provides Apple Silicon wheels and retains OCRmyPDF 14's APIs.
     "pikepdf>=8,<9",
+    "pyarrow>=26.0.1,<27",
+    "pydantic>=2.14.3,<3",
     "pymupdf",
-    "rapidfuzz==3.0.0",
-    "sparqlwrapper==2.0.0",
-    # Keep the existing ORM APIs until a separate SQLAlchemy upgrade.
-    "sqlalchemy>=1.4.54,<2",
-    "tabula-py==2.7.0",
+    "tabula-py>=2.10.0,<3",
 ]
 
 [dependency-groups]
@@ -54,6 +51,6 @@ python-version = "3.11"
 
 [tool.ty.src]
 include = [
-    "database", "service", "test",
+    "models.py", "service", "test",
     "download_data.py", "build_remissinstans_list.py", "clean_data.py",
 ]

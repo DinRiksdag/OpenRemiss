@@ -24,7 +24,7 @@ uv run python download_data.py
 ```
 
 Imports consultation metadata and attachment links from [g0v.se](https://g0v.se/remisser.json)
-into `database/database.db`. Each run refreshes consultations in the feed.
+into Parquet files under `data/`. Each run refreshes consultations in the feed.
 Removed attachments and their derived data are deleted; unchanged documents
 retain extracted names. Consultations outside the feed are left untouched.
 
@@ -36,6 +36,7 @@ uv run python build_remissinstans_list.py
 
 Downloads invitation-list PDFs from the supplied URLs and extracts organisation
 names, using OCR when needed. Downloaded and OCR files are cached under `tmp/`.
+Completed extractions are saved as the command progresses and skipped on later runs.
 
 ### Clean organisation names
 
@@ -46,7 +47,7 @@ uv run python clean_data.py
 Cleans names inferred from response attachment names and invitation lists.
 Matching is heuristic and may require manual review.
 
-See [the data model and SQL examples](data_structure.md) for querying the results.
+See [the datasets and pandas examples](data_structure.md) for analysing the results.
 
 ## Development
 

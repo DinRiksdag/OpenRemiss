@@ -1,83 +1,75 @@
 import re
-from datetime import date
 from urllib.parse import urljoin
 
-from sqlalchemy.orm import selectinload
-
-from database import Answer, ConsulteeList, Document, File, Remiss
+from models import Consultee, Document, DocumentKind, Remiss
 from service.cleaner import Cleaner
+from service.storage import DATA_DIR, load, save
 
 ORIGINAL_URL = "https://www.regeringen.se"
 
 
-def document_type(name):
+def document_type(name: str) -> DocumentKind:
     if Cleaner.is_consultee_list(name):
-        return ConsulteeList
+        return "consultee_list"
     if Cleaner.is_other_document(name):
-        return Document
-    return Answer
+        return "other"
+    return "answer"
 
 
-def sync_remisser(items, codes, session):
-    """Refresh the feed's consultations and attachments, retaining derived data.
-
-    The caller owns the transaction. Consultation URLs and attachment URLs are
-    their identities; unchanged documents keep their IDs and extracted names.
-    """
-    saved = {remiss.url: remiss for remiss in session.query(Remiss).all()}
+def sync_remisser(items, codes, data_dir=DATA_DIR):
+    remisser = {remiss.url: remiss for remiss in load(Remiss, data_dir)}
+    old_documents = {(doc.remiss_url, doc.url): doc for doc in load(Document, data_dir)}
+    refreshed_urls = {urljoin(ORIGINAL_URL, item["url"]) for item in items}
+    documents = {
+        key: doc
+        for key, doc in old_documents.items()
+        if doc.remiss_url not in refreshed_urls
+    }
     for item in items:
         url = urljoin(ORIGINAL_URL, item["url"])
         identifier = item.get("id")
-        values = {
-            "title": item["title"],
-            "published_on": date.fromisoformat(item["published"]),
-            "issuer": codes[item["senders"][0]] if item["senders"] else None,
-            "diary_number": (
-                identifier.removeprefix("Diarienummer:").strip() if identifier else None
-            ),
-        }
-        remiss = saved.get(url)
-        if remiss is None:
-            remiss = Remiss(url=url, **values)
-            session.add(remiss)
-            saved[url] = remiss
-        else:
-            for field, value in values.items():
-                setattr(remiss, field, value)
-        session.flush()
-
-        documents = (
-            session.query(Document)
-            .options(selectinload(Document.files))
-            .filter_by(remiss_id=remiss.id)
-            .all()
+        remisser[url] = Remiss(
+            url=url,
+            title=item["title"],
+            published_on=item["published"],
+            issuer=codes[item["senders"][0]] if item["senders"] else None,
+            diary_number=identifier.removeprefix("Diarienummer:").strip()
+            if identifier
+            else None,
         )
-        by_url = {file.url: doc for doc in documents for file in doc.files}
-        kept = set()
-        seen_urls = set()
         for attachment in item["attachments"]:
             file_url = urljoin(ORIGINAL_URL, attachment["url"])
-            if file_url in seen_urls:
+            key = (url, file_url)
+            if key in documents:
                 continue
-            seen_urls.add(file_url)
             name = re.sub(
                 r"\s*\(pdf\b[^)]*\)\s*$", "", attachment["name"], flags=re.I
             ).strip()
             kind = document_type(name)
-            document = by_url.get(file_url)
-            if document is None or type(document) is not kind:
-                document = kind(
-                    remiss_id=remiss.id, files=[File(name=name, url=file_url)]
-                )
-                session.add(document)
-            else:
-                file = next(file for file in document.files if file.url == file_url)
-                if file.name != name:
-                    file.name = name
-                    if isinstance(document, Answer):
-                        document.organisation = None
-            kept.add(document)
-        for document in documents:
-            if document not in kept:
-                session.delete(document)
+            document = Document(
+                remiss_url=url,
+                url=file_url,
+                name=name,
+                kind=kind,
+                extraction_status="pending" if kind == "consultee_list" else None,
+            )
+            old = old_documents.get(key)
+            if old and old.kind == kind:
+                if old.name == name:
+                    document.organisation = old.organisation
+                document.extraction_status = old.extraction_status
+                document.extraction_error = old.extraction_error
+            documents[key] = document
+
+    invitation_keys = {
+        key for key, doc in documents.items() if doc.kind == "consultee_list"
+    }
+    consultees = [
+        row
+        for row in load(Consultee, data_dir)
+        if (row.remiss_url, row.document_url) in invitation_keys
+    ]
+    save(Consultee, consultees, data_dir)
+    save(Document, list(documents.values()), data_dir)
+    save(Remiss, list(remisser.values()), data_dir)
     return len(items)
