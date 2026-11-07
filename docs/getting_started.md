@@ -9,7 +9,7 @@ from the repository root:
 uv sync --locked
 ```
 
-The project uses Python 3.11. Dependencies are declared in `pyproject.toml`
+The project uses Python 3.15. Dependencies are declared in `pyproject.toml`
 and locked in `uv.lock`.
 
 PDF extraction uses LiteParse with bundled Tesseract. The Swedish OCR model is
