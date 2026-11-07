@@ -8,12 +8,7 @@ app = Flask(__name__)
 app.debug = True
 
 app.add_url_rule(
-    '/graphql',
-    view_func=GraphQLView.as_view(
-        'graphql',
-        schema=schema,
-        graphiql=True
-    )
+    "/graphql", view_func=GraphQLView.as_view("graphql", schema=schema, graphiql=True)
 )
 
 
@@ -22,5 +17,5 @@ def shutdown_session(exception=None):
     Database.remove()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()

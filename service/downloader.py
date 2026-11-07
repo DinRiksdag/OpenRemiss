@@ -1,31 +1,32 @@
-import urllib
+import urllib.parse
 
 from service.selenium_driver import Selenium_Driver
 from service.web_parser import WebParser
 
-REGERING_URL = 'https://www.regeringen.se'
-REGERING_QUERY_URL = REGERING_URL + '/Filter/GetFilteredItems?'
+REGERING_URL = "https://www.regeringen.se"
+REGERING_QUERY_URL = REGERING_URL + "/Filter/GetFilteredItems?"
+
 
 def parameters(page_size, page_number):
     params = {
-            'lang': 'sv',
-            'filterType': 'Taxonomy',
-            'preFilteredCategories': 2099,
-            'displayLimited': 'true',
-            'pageSize': page_size,
-            'page': page_number,
-            }
+        "lang": "sv",
+        "filterType": "Taxonomy",
+        "preFilteredCategories": 2099,
+        "displayLimited": "true",
+        "pageSize": page_size,
+        "page": page_number,
+    }
     return urllib.parse.urlencode(params)
 
-class Downloader(object):
 
+class Downloader(object):
     def __init__(self):
         self.d = Selenium_Driver()
 
     def get_remiss_amount(self):
         response = self.d.get_json(REGERING_QUERY_URL + parameters(1, 1))
 
-        return response['TotalCount']
+        return response["TotalCount"]
 
     def get_last_remisser(self, amount):
         if amount > 1000:
@@ -43,7 +44,9 @@ class Downloader(object):
         return last_remisser
 
     def get_remisser_for_page(self, page_size, page_number):
-        contents = self.d.get_json(REGERING_QUERY_URL + parameters(page_size, page_number))
+        contents = self.d.get_json(
+            REGERING_QUERY_URL + parameters(page_size, page_number)
+        )
 
         return WebParser.get_remiss_list(contents)
 

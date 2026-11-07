@@ -72,10 +72,36 @@ This is why we don't overwrite the information but save it in new fields.
 uv run pytest
 ```
 
-The PDF parser tests require historical files under `tmp/` that are not included
-in this repository. Without those fixtures, the tests cannot pass. The root
-`test.py` is an experimental data-cleaning script and is excluded from test
-discovery.
+Parser helper tests run without downloaded files. The historical PDF tests use
+files under `tmp/` that are not included in this repository; each test skips if
+its fixture is missing. Restoring the fixtures enables those tests automatically.
+The root `test.py` is an experimental data-cleaning script and is excluded from
+test discovery.
+
+## Code quality and pre-commit hooks
+
+```shell
+uv run ruff check .
+uv run ruff format --check .
+uv run ty check
+uv run pytest -ra
+```
+
+Ruff checks basic Python errors and formatting. ty checks the application,
+pipeline scripts, and tests configured in `pyproject.toml`; the standalone
+experiments `test.py` and `convertdiarier.py` are outside its scope.
+Use `uv run ruff check --fix .` and `uv run ruff format .` to apply fixes.
+
+Install the Git hooks once per checkout:
+
+```shell
+uv run pre-commit install
+uv run pre-commit run --all-files
+```
+
+The hooks run Ruff lint, Ruff formatting, and ty. Keep their pinned versions
+aligned with `uv.lock` when upgrading the tools. GitHub Actions runs those same
+checks plus pytest on pushes and pull requests.
 
 ## Managing dependencies
 

@@ -1,19 +1,19 @@
 import subprocess
 import tabula
 
-class TabulaParser(object):
 
+class TabulaParser(object):
     @staticmethod
     def extract(filename, pages, area):
         try:
             return tabula.read_pdf(
-                input_path = filename,
-                pages = pages,
-                pandas_options = {'header': None},
-                area = area
+                input_path=filename,
+                pages=pages,
+                pandas_options={"header": None},
+                area=area,
             )
-        except subprocess.CalledProcessError as e:
-            print(f'Document {filename} was most probably not a PDF')
+        except subprocess.CalledProcessError:
+            print(f"Document {filename} was most probably not a PDF")
             return None
 
     @staticmethod
@@ -22,24 +22,24 @@ class TabulaParser(object):
             filename,
             1,
             [
-                [10, 300, 100, 580], # Header with document number
-                [100, 20, 200, 300]  # Department and sender name
-            ]
-            )
+                [10, 300, 100, 580],  # Header with document number
+                [100, 20, 200, 300],  # Department and sender name
+            ],
+        )
 
     @staticmethod
     def extract_first_page(filename):
         return TabulaParser.extract(
             filename,
             1,
-            [160, 70, 800, 500] # List
-            )
+            [160, 70, 800, 500],  # List
+        )
 
     @staticmethod
     def extract_next_pages(filename):
         df = TabulaParser.extract(
             filename,
-            'all',
-            [70, 70, 800, 500] # List
-            )
-        return df[1:] if df != None else None
+            "all",
+            [70, 70, 800, 500],  # List
+        )
+        return df[1:] if df is not None else None

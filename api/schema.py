@@ -10,6 +10,7 @@ from database.remiss import Remiss as RemissModel
 
 from service.database import Database
 
+
 class FileAttribute:
     name = graphene.String(description="Name of the file.")
     url = graphene.String(description="URL of the file.")
@@ -33,7 +34,8 @@ class Document(SQLAlchemyObjectType):
 
 class AnswerAttribute:
     organisation = graphene.String(
-        description="Organisation or individual which authored the answer.")
+        description="Organisation or individual which authored the answer."
+    )
     remiss_id = DocumentAttribute.remiss_id
     type = DocumentAttribute.type
     files = DocumentAttribute.files
@@ -55,9 +57,8 @@ class Consultee(SQLAlchemyObjectType):
 
 class ConsulteeListAttribute:
     consultee_list = graphene.List(
-        Consultee,
-        description="List of all the consultees in the document."
-                                  )
+        Consultee, description="List of all the consultees in the document."
+    )
     remiss_id = DocumentAttribute.remiss_id
     type = DocumentAttribute.type
     files = DocumentAttribute.files

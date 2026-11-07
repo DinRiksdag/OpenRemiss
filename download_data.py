@@ -9,27 +9,27 @@ RESET_DB = False
 if RESET_DB:
     Database.drop_tables()
     Database.create_tables()
-    print(f'I-0 - Recreated database.\n')
+    print("I-0 - Recreated database.\n")
 
 downloader = Downloader()
 
 saved_remisser = Remiss.query.all()
-print(f'I-1 - Found {len(saved_remisser)} remisser in the database.\n')
+print(f"I-1 - Found {len(saved_remisser)} remisser in the database.\n")
 
-print('Querying regeringen.se...')
+print("Querying regeringen.se...")
 remisser = downloader.get_last_remisser(AMOUNT)
 
 nb_of_remisser = len(remisser)
-print(f'I-2 - Found {nb_of_remisser} remisser online.\n')
+print(f"I-2 - Found {nb_of_remisser} remisser online.\n")
 
 for index, online_remiss in enumerate(remisser, start=1):
     found = False
     for saved_remiss in saved_remisser:
         if saved_remiss.url == online_remiss.url:
             print(
-                  f'{index}/{nb_of_remisser} remiss(er) - '
-                  f'Already saved (id {saved_remiss.id})'
-                  )
+                f"{index}/{nb_of_remisser} remiss(er) - "
+                f"Already saved (id {saved_remiss.id})"
+            )
             found = True
 
     if found:
@@ -44,9 +44,6 @@ for index, online_remiss in enumerate(remisser, start=1):
         Database.add(doc)
 
     Database.commit()
-    print(
-          f'{index}/{nb_of_remisser} remiss(er) saved - '
-          f'{len(documents)} documents(s)'
-          )
+    print(f"{index}/{nb_of_remisser} remiss(er) saved - {len(documents)} documents(s)")
 
 Database.close()

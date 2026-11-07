@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, String, Date
 class Content(Base):
     """Content model."""
 
-    __tablename__ = 'content'
+    __tablename__ = "content"
 
     id = Column(Integer, primary_key=True)
     issuer = Column(String)
@@ -14,7 +14,4 @@ class Content(Base):
     url = Column(String)
     type = Column(String)
 
-    __mapper_args__ = {
-        'polymorphic_identity': 'content',
-        'polymorphic_on': type
-    }
+    __mapper_args__ = {"polymorphic_identity": "content", "polymorphic_on": type}

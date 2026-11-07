@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version-file: .python-version
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v10.1.0
+        with:
+          enable-cache: true
+
+      - name: Install development dependencies
+        run: uv sync --locked
+
+      - name: Check Ruff lint
+        run: uv run --no-sync ruff check .
+
+      - name: Check Ruff formatting
+        run: uv run --no-sync ruff format --check .
+
+      - name: Check types with ty
+        run: uv run --no-sync ty check
+
+      - name: Run tests
+        run: uv run --no-sync pytest -ra

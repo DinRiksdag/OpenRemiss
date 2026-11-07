@@ -5,4 +5,5 @@ __pycache__
 env/
 .venv/
 .pytest_cache/
+.ruff_cache/
 .DS_Store

@@ -35,7 +35,12 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["pytest==7.3.1"]
+dev = [
+    "pre-commit>=4.7,<5",
+    "pytest==7.3.1",
+    "ruff>=0.17.4,<1",
+    "ty>=0.0.99,<0.1",
+]
 
 [tool.uv]
 package = false
@@ -43,3 +48,22 @@ package = false
 [tool.pytest.ini_options]
 testpaths = ["test"]
 pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py311"
+# Local, untracked PDF experiment with a separate dependency stack.
+extend-exclude = ["convertdiarier.py"]
+force-exclude = true
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.ty.environment]
+root = ["."]
+python-version = "3.11"
+
+[tool.ty.src]
+include = [
+    "api", "database", "service", "test", "app.py",
+    "download_data.py", "build_remissinstans_list.py", "clean_data.py",
+]

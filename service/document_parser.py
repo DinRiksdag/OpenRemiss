@@ -8,7 +8,6 @@ from service.tabula_parser import TabulaParser
 
 
 class DocumentParser(object):
-
     @staticmethod
     def extract_list(filename):
         first_page = TabulaParser.extract_first_page(filename)
@@ -19,9 +18,11 @@ class DocumentParser(object):
 
         all_pages = first_page + next_pages
 
-        if (DocumentParser.has_scanned_pages(filename, all_pages)
-        and '-ocr.pdf' not in filename):
-            print('Document is at least partly a scan, attempting ocr...')
+        if (
+            DocumentParser.has_scanned_pages(filename, all_pages)
+            and "-ocr.pdf" not in filename
+        ):
+            print("Document is at least partly a scan, attempting ocr...")
             filename = OCR.ocr(filename)
 
             return DocumentParser.extract_list(filename)
@@ -32,10 +33,10 @@ class DocumentParser(object):
         start = DocumentParser.detect_start(all_rows)
 
         if not start:
-            print('Document is most likely not a remissinstans.')
+            print("Document is most likely not a remissinstans.")
 
-            if '-ocr.pdf' not in filename:
-                print('Attempting a scan in case it fixes an issue...')
+            if "-ocr.pdf" not in filename:
+                print("Attempting a scan in case it fixes an issue...")
                 filename = OCR.ocr(filename)
 
                 return DocumentParser.extract_list(filename)
@@ -80,17 +81,16 @@ class DocumentParser(object):
                     len_right_column = len_column
                     right_column = column
 
-            all_rows= pd.concat([all_rows, right_column])
+            all_rows = pd.concat([all_rows, right_column])
 
         return all_rows.dropna()
 
     @staticmethod
     def detect_start(rows):
         for i, s in enumerate(rows):
-            words = ['remissinstans', 'sändlista']
+            words = ["remissinstans", "sändlista"]
 
-            if (any(word in str(s).lower() for word in words)
-            and len(s.split()) <= 2):
+            if any(word in str(s).lower() for word in words) and len(s.split()) <= 2:
                 return i + 1
 
         return None
@@ -98,7 +98,7 @@ class DocumentParser(object):
     @staticmethod
     def detect_end(rows):
         for i, s in enumerate(rows):
-            words = ['remiss', 'remitt', 'betänkande', ' har ']
+            words = ["remiss", "remitt", "betänkande", " har "]
 
             if any(word in str(s).lower() for word in words):
                 return i
@@ -109,7 +109,7 @@ class DocumentParser(object):
     def remove_page_numbers(rows):
         i = 0
         while i < len(rows):
-            if re.match('[0-9]{1,2} \([0-9]{1,2}\)', rows[i]):
+            if re.match(r"[0-9]{1,2} \([0-9]{1,2}\)", rows[i]):
                 del rows[i]
                 i -= 1
 
@@ -123,14 +123,14 @@ class DocumentParser(object):
         while i < len(rows):
             row = rows[i]
             words = [
-                'telefonväxel',
-                'postadress',
-                'fax:',
-                'besöksadress',
-                '08-405',
-                'webb:',
-                '33 st'
-                ]
+                "telefonväxel",
+                "postadress",
+                "fax:",
+                "besöksadress",
+                "08-405",
+                "webb:",
+                "33 st",
+            ]
 
             if any(word in str(row).lower() for word in words):
                 del rows[i]
@@ -144,17 +144,16 @@ class DocumentParser(object):
     def remove_leading_numbers(rows):
         for i in range(len(rows)):
             row = rows[i]
-            if '.' in row[:5]:
-                num = row[:row.index('.')]
-                num = num.replace('l', '1')
-                num = num.replace('O', '0')
-                num = num.replace(' ', '')
+            if "." in row[:5]:
+                num = row[: row.index(".")]
+                num = num.replace("l", "1")
+                num = num.replace("O", "0")
+                num = num.replace(" ", "")
 
-                row = num + row[row.index('.'):]
+                row = num + row[row.index(".") :]
 
-
-            row = re.sub(r'^\d{1,3}\.', '', row) # Remove '1. ', '2. ', '3. '...
-            row = re.sub(r'^\d{1,3}\s', '', row) # Remove '1 ', '2 ', '3 '...
+            row = re.sub(r"^\d{1,3}\.", "", row)  # Remove '1. ', '2. ', '3. '...
+            row = re.sub(r"^\d{1,3}\s", "", row)  # Remove '1 ', '2 ', '3 '...
             rows[i] = row
 
         return rows
@@ -178,27 +177,28 @@ class DocumentParser(object):
                 i += 1
                 continue
 
-            #if rows[i - 1][-1:] == ',' and row[-1:] != ',':
+            # if rows[i - 1][-1:] == ',' and row[-1:] != ',':
             #    # Trailing comma that doesn't seem to be the norm
             #    rows[i - 1] += ' ' + row
             #    del rows[i]
 
-            if (')' in row
-            and '(' not in row):
+            if ")" in row and "(" not in row:
                 # Unclosed parenthesis
-                rows[i - 1] += ' ' + rows[i]
+                rows[i - 1] += " " + rows[i]
                 del rows[i]
                 continue
 
-            if (i > 0
-            and not r.isupper()         # If not capital letter
-            and len(rows[i - 1]) > 60): # and the previous row is long
-                if rows[i - 1].endswith('-'):
+            if (
+                i > 0
+                and not r.isupper()  # If not capital letter
+                and len(rows[i - 1]) > 60
+            ):  # and the previous row is long
+                if rows[i - 1].endswith("-"):
                     # Merges word split with '-'
                     rows[i - 1] = rows[i - 1][:-1] + row
                 else:
                     # Merges lines cut between two words
-                    rows[i - 1] += ' ' + row
+                    rows[i - 1] += " " + row
 
                 del rows[i]
                 continue
@@ -207,14 +207,17 @@ class DocumentParser(object):
 
     @staticmethod
     def remove_trailing_comma(rows):
-        return [row.rstrip(',') for row in rows]
+        return [row.rstrip(",") for row in rows]
 
     @staticmethod
     def remove_last_paragraph(rows):
         for i, s in enumerate(rows):
             if len(s.split()) >= 17:
-                if ('(' not in s or ')' not in s
-                    or len(s[s.index('('):s.index(')')]) / len(s) < 0.5):
+                if (
+                    "(" not in s
+                    or ")" not in s
+                    or len(s[s.index("(") : s.index(")")]) / len(s) < 0.5
+                ):
                     return rows[:i]
 
         return rows

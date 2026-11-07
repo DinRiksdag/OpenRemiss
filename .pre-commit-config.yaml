@@ -1,0 +1,13 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.4
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+  - repo: https://github.com/astral-sh/ty-pre-commit
+    rev: v0.0.99
+    hooks:
+      - id: ty
+        # Check the configured project scope against its installed dependencies.
+        pass_filenames: false
+        args: [--locked]
