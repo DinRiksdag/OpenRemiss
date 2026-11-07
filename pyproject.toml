@@ -8,10 +8,6 @@ requires-python = ">=3.11,<3.12"
 dependencies = [
     "beautifulsoup4==4.12.2",
     "fake-useragent==1.1.3",
-    "flask==2.3.2",
-    "flask-graphql==2.0.1",
-    "graphene>=2.1.3,<3",
-    "graphene-sqlalchemy==2.3.0",
     "numpy>=1.23,<2",
     "ocrmypdf==14.1.0",
     "packaging==23.1",
@@ -26,12 +22,10 @@ dependencies = [
     "rapidfuzz==3.0.0",
     "selenium==4.9.0",
     "sparqlwrapper==2.0.0",
-    # Graphene-SQLAlchemy 2.x requires SQLAlchemy below 2.
+    # Keep the existing ORM APIs until a separate SQLAlchemy upgrade.
     "sqlalchemy>=1.4.54,<2",
     "tabula-py==2.7.0",
     "webdriver-manager==3.8.6",
-    # Flask 2.3.2's test client uses an API removed in Werkzeug 3.
-    "werkzeug>=2.3.3,<3",
 ]
 
 [dependency-groups]
@@ -64,6 +58,6 @@ python-version = "3.11"
 
 [tool.ty.src]
 include = [
-    "api", "database", "service", "test", "app.py",
+    "database", "service", "test",
     "download_data.py", "build_remissinstans_list.py", "clean_data.py",
 ]

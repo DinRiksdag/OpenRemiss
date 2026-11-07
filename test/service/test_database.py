@@ -2,10 +2,11 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-from api.schema import schema
 from database import base
 from database.answer import Answer
 from database.consultee import Consultee
+from database.consultee_list import ConsulteeList
+from database.file import File
 from database.remiss import Remiss
 from service.database import Database
 
@@ -30,14 +31,28 @@ def test_query_returns_usable_query(session):
     assert Database.query(Remiss).one().title == "Example consultation"
 
 
-def test_graphql_answers_use_database_query(session):
-    session.add(Answer(organisation="Barnombudsmannen"))
+def test_consultation_documents_are_queryable(session):
+    remiss = Remiss(title="Example consultation")
+    session.add_all(
+        [
+            remiss,
+            Answer(
+                remiss=remiss,
+                organisation="Barnombudsmannen",
+                files=[File(name="Response", url="https://example.org/response.pdf")],
+            ),
+            ConsulteeList(
+                remiss=remiss,
+                consultee_list=[Consultee(name="Barnombudsmannen")],
+            ),
+        ]
+    )
     session.commit()
 
-    result = schema.execute("{ answers { organisation } }")
-
-    assert result.errors is None
-    assert result.data == {"answers": [{"organisation": "Barnombudsmannen"}]}
+    saved = Database.query(Remiss).one()
+    assert saved.answers[0].organisation == "Barnombudsmannen"
+    assert saved.answers[0].files[0].url == "https://example.org/response.pdf"
+    assert saved.consultees.consultee_list[0].name == "Barnombudsmannen"
 
 
 def test_empty_column_updates_records(session):

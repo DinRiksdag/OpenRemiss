@@ -45,10 +45,6 @@ class Database(object):
         base.db_session().commit()
 
     @staticmethod
-    def remove():
-        base.db_session.remove()
-
-    @staticmethod
     def close():
         base.db_session().close()
 

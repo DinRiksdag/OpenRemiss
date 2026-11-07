@@ -13,9 +13,9 @@ dependencies, including pytest. Dependencies are declared in `pyproject.toml`;
 commit `uv.lock` whenever they change. Python is temporarily limited to 3.11
 while the legacy dependencies are modernised.
 
-Most existing dependency pins are retained. SQLAlchemy is constrained to 1.4
-for Graphene-SQLAlchemy 2.x, Werkzeug to 2.x for Flask 2.3.2, and NumPy/pandas
-to pre-major-upgrade versions for the existing parser. pikepdf is updated to
+Most existing dependency pins are retained. SQLAlchemy stays on 1.4 to preserve
+the existing ORM APIs, and NumPy/pandas stay on pre-major-upgrade versions for
+the existing parser. pikepdf is updated to
 8.x for Apple Silicon wheels. `pdfminer.six` replaces `pdfminer` so it shares
 OCRmyPDF's implementation rather than installing two packages into the same
 namespace.
@@ -29,7 +29,8 @@ installer. Use `uv run python download_data.py` instead.
 
 ## Running the script
 
-You should now be ready to run the scripts.
+Run the following command-line scripts from the repository root. They save data
+to `database/database.db`, which you can query directly with SQL.
 
 ### Downloading the main lists
 
@@ -87,8 +88,8 @@ uv run ty check
 uv run pytest -ra
 ```
 
-Ruff checks basic Python errors and formatting. ty checks the application,
-pipeline scripts, and tests configured in `pyproject.toml`; the standalone
+Ruff checks basic Python errors and formatting. ty checks the database models,
+services, pipeline scripts, and tests configured in `pyproject.toml`; the standalone
 experiments `test.py` and `convertdiarier.py` are outside its scope.
 Use `uv run ruff check --fix .` and `uv run ruff format .` to apply fixes.
 
