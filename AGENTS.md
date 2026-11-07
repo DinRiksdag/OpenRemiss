@@ -13,3 +13,5 @@ Read `README.md` and `docs/getting_started.md` for context and setup.
   Review expectations against the PDF; never copy extraction mistakes to make
   a test pass. The manual suite downloads missing PDFs into the URL-hash cache
   under `tmp/` and re-extracts them without reusing cached text.
+- Record confirmed parser bugs with `known_issue` (strict xfail); record reviewed
+  document types and source naming errors in `service/document_reviews.json`, with PDF evidence.

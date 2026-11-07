@@ -3,7 +3,8 @@ from datetime import date
 import pytest
 
 from models import Consultee, Document, Remiss
-from service.importer import sync_remisser
+from service.importer import document_type, sync_remisser
+from service.document_reviews import DOCUMENT_REVIEWS, SOURCE_EXCEPTIONS
 from service.storage import load, save
 
 CODES = {
@@ -216,3 +217,198 @@ def test_refresh_preserves_skipped_status(data_dir, item):
     assert (
         load(Document, data_dir)[0].extraction_error == "Unsupported non-PDF document"
     )
+
+
+@pytest.mark.parametrize(
+    "name,expected",
+    [
+        (
+            "Myndigheten för säkerhet och integritetsskydd "
+            "(Säkerhets- och integritetsskyddsnämnden i remisslistan)",
+            "answer",
+        ),
+        ("Förbundet FÖR delaktighet och jämlikhet (utanför remisslistan)", "answer"),
+        ("Utom remisslistan_Skytten Fastighets AB", "answer"),
+        ("Bilaga till remissmissiv - förordningsförslag", "other"),
+        ("Ytterligare remissinstanser som avstått från att lämna synpunkter", "other"),
+        ("Ytterligare remissinstanser som avstår från att lämna synpunkter", "other"),
+        (
+            "Remissinstanser för betänkandet Tillträdesförbud (SOU 2026:48)",
+            "consultee_list",
+        ),
+        (
+            "Komplettering av remissinstans - Länsstyrelsen i Norrbottens län",
+            "consultee_list",
+        ),
+        ("Remissmissiv", "consultee_list"),
+        ("Remisslista (komplettering)", "consultee_list"),
+        ("Remissmissinstanser för promemorian Kraftfullare åtgärder", "consultee_list"),
+        ("Remissinstaner för promemorian Utfasning av ersättning", "consultee_list"),
+        ("Remissbrev Ds 2025:13 Rätt att installera laddpunkt hemma", "consultee_list"),
+        ("Remissinbjudan", "consultee_list"),
+        (
+            "Remittering av promemorian Kompletterande författningsförslag",
+            "consultee_list",
+        ),
+        ("Remiss Promemoria om ersättning för digitala vårdmöten", "consultee_list"),
+        ("Inbjudan till remissmöte om digitalt grönt intyg", "consultee_list"),
+        ("Inbjudan till lärosätena att inkomma med underlag", "consultee_list"),
+        ("Inbjudan om yttrande om Europeiska kommissionens förslag", "consultee_list"),
+        ("Inbjudan hearing SOU 2017:28", "other"),
+        ("00 Remiss Promemoria Swedpartnership", "other"),
+        ("SOU 2016_27 Som ett brev på posten", "other"),
+        ("Remissvar - Promemoria gällande uppgiftsskyldighet", "answer"),
+        ("A2017-01158-ARM_svar_nr_015_Kronofogdemyndigheten - Promemoria", "answer"),
+        (
+            "Betänkande av Klimatanpassningsutredningen SOU 2017:42 Vem har ansvaret?",
+            "other",
+        ),
+        ("Betänkandet Ett stärkt skydd", "other"),
+        ("Stockholms kommun - remissvar över betänkandet", "answer"),
+        (
+            "Remiss av SOU 2018:82 Kompletteringar till den nya säkerhetsskyddslagen",
+            "consultee_list",
+        ),
+    ],
+)
+def test_document_classification_for_reviewed_attachment_labels(name, expected):
+    assert document_type(name) == expected
+
+
+def test_refresh_reclassifies_report_and_clears_organisation(data_dir, item):
+    label = "Betänkande av Klimatanpassningsutredningen SOU 2017:42 Vem har ansvaret?"
+    item["attachments"] = [{"name": label, "url": "/betankande.pdf"}]
+    save(
+        Document,
+        [
+            Document(
+                remiss_url="https://www.regeringen.se" + item["url"],
+                url="https://www.regeringen.se/betankande.pdf",
+                name=label,
+                kind="answer",
+                organisation=label,
+            )
+        ],
+        data_dir,
+    )
+    sync_remisser([item], CODES, data_dir)
+    stored = load(Document, data_dir)[0]
+    assert stored.kind == "other"
+    assert stored.organisation is None
+
+
+@pytest.mark.parametrize(
+    "review",
+    [r for r in DOCUMENT_REVIEWS.values() if not r.get("exclude_by_default", False)],
+)
+def test_reviewed_valid_documents_use_their_type_without_being_excluded(
+    data_dir, item, review
+):
+    item["attachments"] = [{"url": review["url"], "name": review["label"]}]
+    sync_remisser([item], CODES, data_dir)
+    stored = load(Document, data_dir)[0]
+    assert stored.kind == review["kind"]
+    assert stored.organisation == review.get("organisation")
+
+
+def test_refresh_corrects_false_invitation_and_removes_derived_names(data_dir, item):
+    item["attachments"] = [
+        {"name": "Utom remisslistan_Skytten Fastighets AB", "url": "/response.pdf"}
+    ]
+    document = Document(
+        remiss_url="https://www.regeringen.se" + item["url"],
+        url="https://www.regeringen.se/response.pdf",
+        name=item["attachments"][0]["name"],
+        kind="consultee_list",
+        extraction_status="failed",
+        extraction_error="No invitation list could be extracted",
+    )
+    save(Document, [document], data_dir)
+    save(
+        Consultee,
+        [
+            Consultee(
+                remiss_url=document.remiss_url,
+                document_url=document.url,
+                name="Incorrect",
+            )
+        ],
+        data_dir,
+    )
+
+    sync_remisser([item], CODES, data_dir)
+
+    stored = load(Document, data_dir)[0]
+    assert stored.kind == "answer"
+    assert stored.extraction_status is None
+    assert stored.extraction_error is None
+    assert load(Consultee, data_dir) == []
+
+
+def test_source_exception_is_excluded_or_included_with_reviewed_type(
+    data_dir, item, caplog
+):
+    exception = next(iter(SOURCE_EXCEPTIONS.values()))
+    item["attachments"] = [{"name": exception["label"], "url": exception["url"]}]
+
+    sync_remisser([item], CODES, data_dir)
+    assert load(Document, data_dir) == []
+    assert exception["url"] in caplog.text
+    assert exception["reason"] in caplog.text
+
+    sync_remisser([item], CODES, data_dir, include_source_exceptions=True)
+    document = load(Document, data_dir)[0]
+    assert document.url == exception["url"]
+    assert document.name == exception["label"]
+    assert document.kind == exception["kind"] == "other"
+    assert document.extraction_status is None
+
+    sync_remisser([item], CODES, data_dir)
+    assert load(Document, data_dir) == []
+
+
+def test_download_command_can_include_source_exceptions(data_dir, item, monkeypatch):
+    from download_data import main
+    from service.downloader import Downloader
+
+    exception = next(iter(SOURCE_EXCEPTIONS.values()))
+    item["attachments"] = [{"name": exception["label"], "url": exception["url"]}]
+    monkeypatch.setattr(Downloader, "get_remisser", lambda: [item])
+    monkeypatch.setattr(Downloader, "get_codes", lambda: CODES)
+
+    main(data_dir, include_source_exceptions=True)
+
+    assert load(Document, data_dir)[0].kind == "other"
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "Remiss Socialstyrelsens rapport Rättsliga anpassningar till EUs humanmaterialförordning",
+        "Remiss Ds 2026:19 Utökad tillsyn över barn",
+        "Remiss: Ökade möjligheter till modersmålsundervisning",
+        "Remiss, Förstärkt rehabilitering för återgång i arbete",
+        "Remiss-Förslag till lag om ersättning",
+        "Remisslinstanser för Ny lag om koordineringsinsatser",
+        "Remissminstanser för Boverkets förslag",
+        "Remissinsatnaser för Transportstyrelsens redovisning",
+        "Remissintstanser för förslag till direktiv",
+        "Remissinsatser: Nya skatteregler för företagssektorn",
+        "Remissmisiv Ytterligare anpassningar",
+        "Remissmisslista Vägen mot fossiloberoende jordbruk",
+    ],
+)
+def test_missed_invitation_title_patterns_found_by_remiss_query(name):
+    assert document_type(name) == "consultee_list"
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "Utkast till lagrådsremiss Statlig ersättning för personskada",
+        "Remissdokument: Underlag till beredningen av nytt mediestöd",
+        "Remiss Förlängd remisstid Frågor kring 2009 års renskötselkonvention",
+    ],
+)
+def test_supporting_documents_found_by_remiss_query(name):
+    assert document_type(name) == "other"

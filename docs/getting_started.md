@@ -27,6 +27,9 @@ Imports consultation metadata and attachment links from [g0v.se](https://g0v.se/
 into Parquet files under `data/`. Each run refreshes consultations in the feed.
 Removed attachments and their derived data are deleted; unchanged documents
 retain extracted names. Consultations outside the feed are left untouched.
+Reviewed types and naming exceptions are in `service/document_reviews.json`.
+Invalid attachments are excluded by default; `--include-source-exceptions` includes
+them with their reviewed types. Valid documents retain their reviewed classification.
 
 ### Extract invitation lists
 
@@ -39,6 +42,8 @@ names, using OCR when needed. PDFs, extracted text, and coordinates are cached
 under `tmp/`. Results are saved every 50 documents or 30 seconds, and on exit or
 interruption. Completed extractions are skipped on later runs.
 Non-PDF files are logged and recorded as skipped.
+Document errors are logged and recorded as failed; processing continues.
+Use `--reset` to re-extract completed lists using the cached PDFs and text.
 
 ### Clean organisation names
 
@@ -72,6 +77,8 @@ uv run pytest -m quality --durations=0 -ra
 
 Cases in `test/quality/cases.json` check list sizes and/or exact names. PDFs are
 downloaded into `tmp/` when missing; each run repeats extraction and reports timings.
+Known parser bugs use strict xfail; `--runxfail` exposes their failing assertions.
+Use `-m 'quality and not source_exception'` to omit known source metadata errors.
 
 Install and run the hooks:
 

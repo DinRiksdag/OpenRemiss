@@ -1,3 +1,4 @@
+import argparse
 from collections import Counter, defaultdict
 from hashlib import sha256
 import logging
@@ -83,6 +84,8 @@ def main(
                 names = extract_document(document, filepath)
                 if names is not None:
                     consultees[(document.remiss_url, document.url)] = names
+                elif document.extraction_status in ("failed", "skipped"):
+                    consultees.pop((document.remiss_url, document.url), None)
             finally:
                 counts[previous_status] -= 1
                 counts[document.extraction_status] += 1
@@ -136,7 +139,7 @@ def extract_document(document, filepath):
         document.extraction_status = "failed"
         document.extraction_error = str(error)
         logger.exception("Failed to extract invitation list: %s", document.url)
-        raise
+        return
 
     if names is None:
         document.extraction_status = "failed"
@@ -150,5 +153,10 @@ def extract_document(document, filepath):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--reset", action="store_true", help="Re-extract completed lists"
+    )
+    args = parser.parse_args()
     configure_logging("extraction")
-    main()
+    main(reset=args.reset)

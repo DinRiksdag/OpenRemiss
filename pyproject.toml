@@ -26,7 +26,10 @@ package = false
 testpaths = ["test"]
 pythonpath = ["."]
 addopts = "-m 'not quality'"
-markers = ["quality: manual extraction quality and timing checks against real PDFs"]
+markers = [
+    "quality: manual extraction quality and timing checks against real PDFs",
+    "source_exception: verified naming or attachment errors in the source metadata",
+]
 
 [tool.ruff]
 target-version = "py315"

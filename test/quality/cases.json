@@ -550,5 +550,1067 @@
       "Småföretagarnas Riksförbund",
       "Stockholms handelskammare"
     ]
+  },
+  {
+    "id": "resolution-2026-attachment-after-list",
+    "url": "https://www.regeringen.se/contentassets/343743f6a883483a80d203e4baca7a78/remissinstanser-for-promemorian-arliga-avgifter-for-finansiering-av-resolution.pdf",
+    "pdf_sha256": "904c214956ab796b628724355d5f60ee74b5fedd3c837548baebfdb1ec9f10dd",
+    "expected_count": 4,
+    "expected_names": [
+      "Finansinspektionen",
+      "Riksbanken",
+      "Riksgäldskontoret",
+      "Svensk Försäkring"
+    ]
+  },
+  {
+    "id": "tilltradesforbud-2026-wrapped-qualifier",
+    "url": "https://www.regeringen.se/contentassets/03ef2b9bc01e49d5b32ef5f871157f41/remissinstanser-for-delbetankandet-tilltradesforbud-sou-202648.pdf",
+    "pdf_sha256": "ffeb9b302dfab1081867c9a262ca6c176d5f668ea98bea820b7deab716b7d269",
+    "expected_count": 74,
+    "expected_names": [
+      "Alingsås kommun",
+      "Arbetsmiljöverket",
+      "Barnombudsmannen",
+      "Brottsförebyggande rådet",
+      "Bräcke kommun",
+      "Butikerna",
+      "Båstads kommun",
+      "Centrum för rättvisa",
+      "Civil Rights Defenders",
+      "Diskrimineringsombudsmannen",
+      "Domstolsverket",
+      "Ekobrottsmyndigheten",
+      "Fastighetsägarna Sverige",
+      "Finspångs kommun",
+      "Funktionsrätt Sverige",
+      "Företagarna",
+      "Gnesta kommun",
+      "Gävle kommun",
+      "Göteborgs kommun",
+      "Hagfors kommun",
+      "Haninge kommun",
+      "Helsingborgs kommun",
+      "Huddinge kommun",
+      "Hudiksvalls kommun",
+      "Hässleholms tingsrätt",
+      "ICA-handlarnas Förbund",
+      "Institutet för mänskliga rättigheter",
+      "Integritetsskyddsmyndigheten",
+      "Justitiekanslern",
+      "Kalmar kommun",
+      "Katrineholms kommun",
+      "Kiruna kommun",
+      "Kriminalvården",
+      "Kungliga biblioteket",
+      "Landsorganisationen i Sverige",
+      "Lantbrukarnas Riksförbund",
+      "Linköpings kommun",
+      "Lysekils kommun",
+      "Marks kommun",
+      "Näringslivets regelnämnd",
+      "Orsa kommun",
+      "Polismyndigheten",
+      "Regelrådet",
+      "Riksantikvarieämbetet",
+      "Riksdagens ombudsmän",
+      "Riksförbundet Sveriges museer",
+      "Sala kommun",
+      "Sigtuna kommun",
+      "Skövde kommun",
+      "Solna kommun",
+      "Stiftelsen Tryggare Sverige",
+      "Stockholms universitet (Juridiska institutionen och Kriminologiska institutionen)",
+      "Strömstads kommun",
+      "Svea hovrätt",
+      "Svenljunga kommun",
+      "Svensk biblioteksförening",
+      "Svensk Dagligvaruhandel",
+      "Svensk Försäkring",
+      "Svensk Handel",
+      "Svenska Badmästareförbundet",
+      "Svensk Scenkonst",
+      "Svenskt Näringsliv",
+      "Sveriges advokatsamfund",
+      "Sveriges akademikers centralorganisation",
+      "Sveriges Kommuner och Regioner",
+      "Säkerhetspolisen",
+      "Södertörns tingsrätt",
+      "Tingsryds kommun",
+      "Tjänstemännens centralorganisation",
+      "Tranås kommun",
+      "Umeå kommun",
+      "Vellinge kommun",
+      "Vänersborgs tingsrätt",
+      "Åklagarmyndigheten"
+    ]
+  },
+  {
+    "id": "fast-omsorgskontakt-2020-title-before-heading",
+    "url": "https://www.regeringen.se/contentassets/d4382fb055264827a70dcc35e5d32505/remissinstanser_fast_omsorgskontakt-sou_2020_70.pdf",
+    "pdf_sha256": "b4cca9994cf9f89d6a05a881ba747299c3eb86adab798353954639798ae0afca",
+    "expected_count": 77,
+    "expected_names": [
+      "Akademikerförbundet SSR",
+      "Almega Vårdföretagen",
+      "Alzheimer Sverige",
+      "Anhörigas riksförbund",
+      "Bjuv kommun",
+      "Boden kommun",
+      "Borgholm kommun",
+      "Datainspektionen",
+      "Demensförbundet",
+      "E-hälsomyndigheten (EHM)",
+      "Essunga kommun",
+      "Folkbildningsrådet",
+      "Folkhälsomyndigheten",
+      "Forshaga kommun",
+      "Forskningsrådet för arbetsliv hälsa och välfärd (Forte)",
+      "Funktionsrätt Sverige",
+      "Fysioterapeuterna",
+      "Föreningen Sveriges Socialchefer",
+      "Förvaltningsrätten i Linköping",
+      "Gävle kommun",
+      "Hallsberg kommun",
+      "Håbo kommun",
+      "Hässleholm kommun",
+      "Högsby kommun",
+      "Inspektionen för vård och omsorg (IVO)",
+      "Justitiekanslern",
+      "Kammarrätten i Jönköping",
+      "Kiruna kommun",
+      "Kungsbacka kommun",
+      "Leksand kommun",
+      "Lund kommun",
+      "Mjölby kommun",
+      "Myndigheten för delaktighet (MFD)",
+      "Myndigheten för vård- och omsorgsanalys",
+      "Nationellt kompetenscentrum anhöriga",
+      "Nordanstig kommun",
+      "Norrtälje kommun",
+      "Norsjö kommun",
+      "Ockelbo kommun",
+      "Pensionärernas Riksorganisation (PRO)",
+      "Region Blekinge",
+      "Region Norrbotten",
+      "Region Stockholm",
+      "Region Värmland",
+      "Riksdagens ombudsmän (JO)",
+      "Riksföreningen för Medicinskt ansvariga sjuksköterskor och Medicinskt ansvariga för rehabilitering",
+      "RPG Riksförbundet PensionärsGemenskap",
+      "Saco",
+      "Skolinspektionen",
+      "Skolverket",
+      "SKPF Pensionärerna",
+      "Socialstyrelsen",
+      "SPF Seniorerna",
+      "Statens beredning för medicinsk och social utvärdering (SBU)",
+      "Statistiska centralbyrån (SCB)",
+      "Stockholm kommun",
+      "Strömsund kommun",
+      "Sundbyberg kommun",
+      "Svensk sjuksköterskeförening",
+      "Svenska Institutet för Standarder (SiS)",
+      "Svenska kommunalarbetarförbundet (Kommunal)",
+      "Svenska Läkaresällskapet",
+      "Svenskt Demenscentrum",
+      "Sveriges Arbetsterapeuter",
+      "Sveriges Kommuner och Regioner (SKR)",
+      "Sveriges läkarförbund",
+      "Tingsryd kommun",
+      "Umeå kommun",
+      "Vimmerby kommun",
+      "Vision",
+      "Vård och omsorgscollege",
+      "Vårdförbundet",
+      "Äldrecentrum",
+      "Älvdalen kommun",
+      "Ödeshög kommun",
+      "Östhammar kommun",
+      "Överkalix kommun"
+    ]
+  },
+  {
+    "id": "animalieproduktion-2024-numbered-without-heading",
+    "url": "https://www.regeringen.se/contentassets/149fb3dca70749519c9dc1c6b98397e0/remissinstanser-for-betankandet-animalieproduktion-med-hog-konkurrenskraft-och-gott-djurskydd-sou-202456/",
+    "pdf_sha256": "99331322d7bdc2f3c6cc209fb834f0a9107a698492b6a8c6eadde694eae38320",
+    "expected_count": 126
+  },
+  {
+    "id": "konnektivitet-2023-appendix-heading",
+    "url": "https://www.regeringen.se/contentassets/c51df328ae574399b20b1b5a613da5bc/remissinstanser-for-fragor-om-dagens-och-framtidens-utmaningar-pa-konnektivitetsomradet.pdf",
+    "pdf_sha256": "3a206636733a146d04ddcd65e78d54a49735c06c5a31e0aa907b4a3daa570178",
+    "expected_count": 124
+  },
+  {
+    "id": "komvux-2020-supplement-heading-in-prose",
+    "url": "https://www.regeringen.se/contentassets/8cc5d0471d2d44e0adab585ba10e8551/komplettering-av-remissinstanser-for-utredningen-om-planering-och-dimensionering-av-komvux-och-gymnasieskola-sou-202033/",
+    "pdf_sha256": "30a7243b8b00d32433457376a1e6011812fadf0267c8de7d05a75d285df23737",
+    "expected_count": 2,
+    "expected_names": [
+      "Centrala studiestödsnämnden (CSN)",
+      "Folkbildningsrådet"
+    ]
+  },
+  {
+    "id": "resolutionsregelverket-2020-rotated-pages",
+    "url": "https://www.regeringen.se/contentassets/871d85fcba00443d9531c3caf460dd3c/remissinstanser-vissa-andringar-i-skattelagstiftningen-till-foljd-av-resolutionsregelverket-utkast-till-lagradsremiss.pdf",
+    "pdf_sha256": "20c3704e66cbc99b67fbb641b7c12b39157c5a7277bf43673cf24f8406f578d1",
+    "expected_count": 14,
+    "expected_names": [
+      "FAR",
+      "Finansbolagens förening",
+      "Finansinspektionen",
+      "Fondbolagens förening",
+      "Föreningen Svenskt Näringsliv",
+      "Förvaltningsrätten i Stockholm",
+      "Konkurrensverket",
+      "Lunds universitet, juridiska fakulteten",
+      "Näringslivets Skattedelegation (NSD)",
+      "Regelrådet",
+      "Riksgäldskontoret",
+      "Skatteverket",
+      "Svenska Bankföreningen",
+      "Sveriges riksbank"
+    ]
+  },
+  {
+    "id": "response-2026-mentions-remisslistan",
+    "url": "https://www.regeringen.se/contentassets/0f87641a06cd473f80486ac1551fe965/myndigheten-for-sakerhet-och-integritetsskydd-sakerhets--och-integritetsskyddsnamnden-i-remisslistan.pdf",
+    "pdf_sha256": "30279c28551456f6eddd1f71543aa71a6e2f93060e0699715cce1b6f4b1e779b",
+    "expected_count": 0,
+    "expected_names": null
+  },
+  {
+    "id": "boverket-2019-wrong-source-attachment",
+    "url": "https://www.regeringen.se/contentassets/aa7da9db2df14c208c53c45900a9ae90/remissinstanser-for-boverkets-rapport-inspektion-av-uppvarmningssystem-och-luftkonditioneringssystem.pdf",
+    "pdf_sha256": "8f49cb50eb17469a5c6ddb487d311e183f0ff03ba365ccacec7a938506c5c8b9",
+    "expected_count": 0,
+    "expected_names": null
+  },
+  {
+    "id": "seasonal-clock-2018-split-ocr-heading",
+    "url": "https://www.regeringen.se/contentassets/064f1ec0eb374b2eaaf75cc8dca419b4/remissmissiv/",
+    "pdf_sha256": "d34f53a251ac5b348db6e1caadcb0f322ed2c30f3c8b71f1e218c8c8462bc16f",
+    "expected_count": 22,
+    "expected_names": [
+      "Arbetsmiljöverket",
+      "Energimyndigheten",
+      "Folkhälsomyndigheten",
+      "Landsorganisationen i Sverige (LO)",
+      "Lantbrukarnas Riksförbund (LRF)",
+      "Luftfartsverket",
+      "Post- och telestyrelsen",
+      "Research Institutes of Sweden (RISE)",
+      "Riksidrottsförbundet",
+      "SACO",
+      "Sjöfartsverket",
+      "Statens jordbruksverk",
+      "Svensk Förening för Sömnforskning och Sömnmedicin (SFSS)",
+      "Svenskt Näringsliv",
+      "Sveriges Kommuner och Landsting",
+      "TCO",
+      "Tillväxtanalys",
+      "Tillväxtverket",
+      "Trafikanalys",
+      "Trafikverket",
+      "Transportföretagen",
+      "Transportstyrelsen"
+    ]
+  },
+  {
+    "id": "mosquitoes-2018-prose-between-list-sections",
+    "url": "https://www.regeringen.se/contentassets/6a8630ab9f35405682750d8d850452e7/remissinstanser-for-remiss-gallande-provning-enligt-7-kap.-29-miljobalken-avseende-bekampning-av-larver-av-oersvamningsmygg-i-nedre-dalalvens-oversvamningsvatmarker.pdf",
+    "pdf_sha256": "b63368202498db87720f7541aa526f747848873d14b3d7d98fc5c4c7ab41aaaa",
+    "expected_count": 32,
+    "expected_names": [
+      "Länsstyrelsen i Uppsala län",
+      "Länsstyrelsen i Västmanlands län",
+      "Länsstyrelsen i Dalarnas län",
+      "Länsstyrelsen i Gävleborgs län",
+      "Stockholms universitet",
+      "Umeå universitet",
+      "Skogsstyrelsen",
+      "Jordbruksverket",
+      "Sveriges lantbruksuniversitet",
+      "Centrum för biologisk mångfald",
+      "Kemikalieinspektionen",
+      "Havs- och vattenmyndigheten",
+      "Folkhälsomyndigheten",
+      "Myndigheten för samhällsskydd och beredskap",
+      "Länsstyrelsen i Jämtlands län",
+      "Heby kommun",
+      "Tierps kommun",
+      "Älvkarleby kommun",
+      "Sala kommun",
+      "Avesta kommun",
+      "Gävle kommun",
+      "Sandvikens kommun",
+      "Samverkansorganet i Uppsala län",
+      "Gävleborgs läns landsting",
+      "Samverkansorganet i Dalarnas län",
+      "Vattenregleringsföretagen",
+      "Fortum",
+      "Vattenfall",
+      "Nedre Dalälvens Utvecklings AB",
+      "Naturskyddsföreningen/Projekt vitryggig hackspett",
+      "Sveriges Entomologiska Förening",
+      "Världsnaturfonden WWF"
+    ]
+  },
+  {
+    "id": "strada-2019-bullet-markers",
+    "url": "https://www.regeringen.se/contentassets/95a77c139fcc4e6d81ed79b3586f00cf/remissmissiv-finansiering-av-strada.pdf",
+    "pdf_sha256": "725a740d2a444a39dd0a843ce2a860bcb076b41b93af22ccfe16a3ba17d301e8",
+    "expected_count": 22,
+    "expected_names": [
+      "Akademiska sjukhuset, Uppsala",
+      "Cykelfrämjandet",
+      "Ekonomistyrningsverket (ESV)",
+      "Folksam",
+      "Hallands läns landsting",
+      "Helsingborgs lasarett",
+      "Motorförarnas helnykterhetsförbund (MHF)",
+      "Motormännens Riksförbund",
+      "Nationalföreningen för Trafiksäkerhetens främjande (NTF)",
+      "Norrbottens läns landsting",
+      "SAFER Vehicle and Traffic Safety Centre",
+      "Skåne läns landsting",
+      "Socialstyrelsen",
+      "Stockholms läns landsting",
+      "Sveriges Kommuner och Landsting",
+      "Sveriges motorcyklisters centralorganisation",
+      "Södersjukhuset",
+      "Trafikförsäkringsföreningen",
+      "Volvo Lastvagnar",
+      "Värmlands läns landsting",
+      "Örebro läns landsting",
+      "Örnsköldsviks sjukhus"
+    ]
+  },
+  {
+    "id": "svesam-2026-short-wrapped-names",
+    "url": "https://www.regeringen.se/contentassets/3e1d678db80f453dbb03b5629a138550/remissmissiv_webb.pdf",
+    "pdf_sha256": "e744b2bd7e11a6c0a92b643c690b0360a3a242cc96e6355a2a35fb48cb2894f5",
+    "expected_count": 198
+  },
+  {
+    "id": "namndmyndigheter-2024-long-capitalised-qualifiers",
+    "url": "https://www.regeringen.se/contentassets/1e29a610f42641e09d9d904433daa358/remissinstanser-for-statskontorets-rapport-en-form-for-kollektivt-beslutsfattande--en-kartlaggning-och-provning-av-namndmyndigheter-202411.pdf",
+    "pdf_sha256": "eb8d59f8c55a83aa19a8fec1a5a6e2b14899ba264d4f50957026d9a5007f45a2",
+    "expected_count": 87,
+    "expected_cleaned_contains": [
+      "Bokföringsnämnden",
+      "Domarnämnden",
+      "Fideikommissnämnden",
+      "Lokala säkerhetsnämnden vid kärnkraftverket och anläggningen för mellanlagring av använt kärnbränsle i Simpevarp"
+    ]
+  },
+  {
+    "id": "datastyrning-2020-prose-after-list",
+    "url": "https://www.regeringen.se/contentassets/8e9ff0316cf3404598c251cbb46b6c83/remiss-av-forordningen-om-europeisk-datastyrning.pdf",
+    "pdf_sha256": "d8cc84e575dc104266215d12f7617e3a3586bf072ea663e4f89df50701a7c567",
+    "expected_count": 4,
+    "expected_names": [
+      "Försvarets materielverk",
+      "Försvarsmakten",
+      "Rekryteringsmyndigheten",
+      "Totalförsvarets forskningsinstitut"
+    ]
+  },
+  {
+    "id": "vaghallning-2024-preserve-printed-duplicates",
+    "url": "https://www.regeringen.se/contentassets/0077fdfae3bc40dc8d5b32165c821444/remissinstanser-promemorian-statsbidrag-till-enskild-vaghallning.pdf",
+    "pdf_sha256": "f40241222dd7234cdeb634080994cacb9291f5d5a62b276fe07916c35e4ac0c2",
+    "expected_count": 62
+  },
+  {
+    "id": "digital-narvaro-2018-soft-hyphen",
+    "url": "https://www.regeringen.se/contentassets/8fc9541bcda0460ea3623f3d194e1759/remissinstanser-europeiska-kommissionens-forslag-till-radets-direktiv-om-faststallande-av-regler-med-avseende-pa--bolagsbeskattning-av-en-betydande-digital-narvaro-com2018-147-final.pdf",
+    "pdf_sha256": "f97fb86a1e6d68e100f2e525bd98823645ae65274d6b30ea8f90d67e2188da04",
+    "expected_count": 47,
+    "expected_names": [
+      "Kammarrätten i Stockholm",
+      "Förvaltningsrätten i Göteborg",
+      "Förvaltningsrätten i Stockholm",
+      "Ekobrottsmyndigheten",
+      "Datainspektionen",
+      "Kommerskollegium",
+      "Sveriges export- och investeringsråd (Business Sweden)",
+      "Finansinspektionen",
+      "Ekonomistyrningsverket",
+      "Skatteverket",
+      "Konjunkturinstitutet",
+      "Bokföringsnämnden",
+      "Juridiska fakulteten vid Stockholms universitet",
+      "Juridiska fakulteten vid Uppsala universitet",
+      "Institutet för internationell ekonomi, IIES, Stockholms universitet",
+      "Nationalekonomiska institutionen, Lunds universitet",
+      "Nationalekonomiska institutionen, Uppsala universitet",
+      "Handelshögskolan i Stockholm",
+      "Post- och Telestyrelsen",
+      "Konkurrensverket",
+      "Bolagsverket",
+      "Tillväxtverket",
+      "Tillväxtanalys - myndigheten för tillväxtpolitiska utvärderingar och analyser",
+      "Regelrådet",
+      "Almi",
+      "Dataspelsbranschen",
+      "FAR",
+      "Finansbolagens Förening",
+      "Fondbolagens förening",
+      "Föreningen Svenskt Näringsliv",
+      "Företagarna",
+      "Institutet för Näringslivsforskning, IFN",
+      "IT&Telekomföretagen",
+      "Landsorganisationen i Sverige (LO)",
+      "Näringslivets regelnämnd",
+      "Näringslivets skattedelegation",
+      "Nätverket för elektroniska affärer",
+      "Stockholms Handelskammare",
+      "Svenska Bankföreningen",
+      "Svenska Fondhandlareföreningen",
+      "Svenska Riskkapitalföreningen, SVCA",
+      "Svensk Digital Handel",
+      "Svensk Handel",
+      "Sveriges advokatsamfund",
+      "Sveriges Akademikers Centralorganisation (Saco)",
+      "Sveriges Redovisningskonsulters Förbund SRF",
+      "Tjänstemännens Centralorganisation (TCO)"
+    ]
+  },
+  {
+    "id": "apoteksmarknaden-2017-ocr-number-column",
+    "url": "https://www.regeringen.se/contentassets/a3643b6bdec44420a9fc9db4f8fe7b28/remisslista-for-kvalitet-och-sakerhet-pa-apoteksmarknaden-sou-2017_15.pdf",
+    "pdf_sha256": "daa7477fb6cd34cc45315b46a84e11e3288e904886426da7bce2f99d8fc019a8",
+    "expected_count": 166
+  },
+  {
+    "id": "farleder-2017-existing-text-layer",
+    "url": "https://www.regeringen.se/contentassets/1d381a1be5394b70abda2cda4b1b1715/remissmissiv.pdf",
+    "pdf_sha256": "7da525a2ae2f6c4d9b7e04a1c4698cdd4d179a0bf2d20df6df44ad21aea1ea3f",
+    "expected_count": 120
+  },
+  {
+    "id": "tvangsarbete-2022-repeated-ocr-fragments",
+    "url": "https://www.regeringen.se/contentassets/c33e368362b74a6c977880b7030ff568/remissinstanser-for-forbud-mot-produkter-som-tillverkats-genom-tvangsarbete.pdf",
+    "pdf_sha256": "ea00f9fcbca8d1e4200dc7e5108ce4d1015fbd1386d9f6a708e53c6be85f65a2",
+    "expected_count": 115
+  },
+  {
+    "id": "infrastruktur-2024-running-headers-and-side-labels",
+    "url": "https://www.regeringen.se/contentassets/8a925d432e0d4c8896f670942ea237fb/remissinstanser-inriktningsunderlag-2024.pdf",
+    "pdf_sha256": "55e4bd3dd1fa9a3d4eebe38f7bf747615dd85efec9aa99114af8ff75ac7aa68e",
+    "expected_count": 185,
+    "review_note": "Source pages 2–8 contain 28 + 30 + 30 + 30 + 30 + 30 + 7 recipients; six running TRV headers are not recipients.",
+    "expected_contains": [
+      "2030-sekretariatet",
+      "Östsvenska Handelskammaren"
+    ]
+  },
+  {
+    "id": "lowercase-and-digits-2026",
+    "url": "https://www.regeringen.se/globalassets/regeringen/block/kontaktblock/landsbygds--och-infrastrukturdepartementet/presskommunikator/remissmissiv.pdf",
+    "pdf_sha256": "fa1894f9a49bd06f86deed282002cc867aac327e808e10ca4bd60427d47217f2",
+    "expected_count": 48
+  },
+  {
+    "id": "atsec-lowercase-brand-2026",
+    "url": "https://www.regeringen.se/contentassets/0385e854b91441a5bbebb146c8159e3a/remissinstanser-for-sou-2025115-kompletterande-bestammelser-till-eus-cyberresiliensforordning.pdf",
+    "pdf_sha256": "52d6e9d21cb3f9a6df167b8ccca0299c2d2a5559cba78110bb0ce52aad84956b",
+    "expected_count": 102
+  },
+  {
+    "id": "long-qualifiers-2025",
+    "url": "https://www.regeringen.se/contentassets/e9f5868ae82745588364c1767fb6c0ca/tillagg-remissinstanser-for-promemorian-utokad-registerkontroll-i-utbildningsvasendet-och-en-ny-grund-for-avskiljande-av-studenter.pdf",
+    "pdf_sha256": "79cfbc44dc1eca4dbd937a70408b3973bf69742a7927311670ca1610fb5c21e6",
+    "expected_count": 5
+  },
+  {
+    "id": "inlaning-2019-ocr-drops-closing-parentheses",
+    "url": "https://www.regeringen.se/contentassets/d7255d8aeb8542e4849c308cf2495ba3/remissinstanser-forstarkt-konsumentskydd-pa-inlaningsmarknaden.pdf",
+    "pdf_sha256": "486c5e7c83cf1d08beef292098ebff2584f5943480b6d9eb07349c4c3674bde1",
+    "expected_count": 42,
+    "expected_names": [
+      "4spar AB",
+      "Agenta Advisors AB",
+      "Akelius Spar AB",
+      "Allmänna reklamationsnämnden",
+      "APP Spar AB",
+      "Boverket",
+      "Ekobrottsmyndigheten",
+      "Finansbolagens Förening",
+      "Finansförbundet",
+      "Finansinspektionen",
+      "Fondbolagens förening",
+      "Företagarna",
+      "Förvaltningsrätten i Stockholm",
+      "HSB Riksförbund",
+      "Kammarrätten i Stockholm",
+      "Konjunkturinstitutet",
+      "Konkurrensverket",
+      "Konsumenternas Bank- och finansbyrå",
+      "Konsumentverket",
+      "Kooperativa Förbundet",
+      "Kriminalpolisens Sparkassa",
+      "Landsorganisationen i Sverige (LO)",
+      "Myndigheten för tillväxtpolitiska utvärderingar och analyser (Tillväxtanalys)",
+      "Näringslivets Regelnämnd",
+      "Polismyndigheten",
+      "Regelrådet",
+      "Riksgäldskontoret",
+      "Seko, Service- och kommunikationsfacket (avsnitt 2.5)",
+      "Sjöbefälsföreningen (avsnitt 2.5)",
+      "Sparbankernas Riksförbund",
+      "Svensk Försäkring",
+      "Svenska Bankföreningen",
+      "Svenska Fondhandlareföreningen",
+      "Svenskt Näringsliv",
+      "Sveriges Kommuner och Landsting (SKL)",
+      "Sveriges Konsumenter",
+      "Sveriges riksbank",
+      "Swedish Fintech Association",
+      "Swespar AB",
+      "Tillväxtverket",
+      "Upplandsspar AB",
+      "ViaSpar Finans AB"
+    ],
+    "known_issue": "LiteParse numeric OCR-token cleanup drops the trailing parenthesis in two avsnitt 2.5) qualifiers, at both 150 and 300 DPI."
+  },
+  {
+    "id": "famansforetag-2021-revised-heading",
+    "url": "https://www.regeringen.se/contentassets/4c532a40abc941f48decd8d7d6890bce/remissinstanser-komplettering-av-den-utvidgade-famansforetagsdefinitionen.pdf",
+    "pdf_sha256": "67e6e34dcc2ae7796b7ff1a23fd53c273c2bd1d68fa181187989073d2349c57c",
+    "expected_count": 30,
+    "expected_contains": [
+      "Advokatsamfundet",
+      "Tjänstemännens Centralorganisation (TCO)"
+    ]
+  },
+  {
+    "id": "paketleverans-2018-numeric-company-name",
+    "url": "https://www.regeringen.se/contentassets/b3e6c5bfeaed4c929fa8981a125b9c0c/missiv-promemoria_-kompletterande-bestammelser-till-eu_s-forordning-om-gransoverskridande-paketleveranstjanster.pdf",
+    "pdf_sha256": "67d8ebb5616ef10aa28ddb81fc7bd8dcc17ff805ece29ae9cd6746aae010a427",
+    "expected_count": 38,
+    "expected_contains": [
+      "21 Grams",
+      "Post- och telestyrelsen"
+    ]
+  },
+  {
+    "id": "ap-fonder-2025-dash-list",
+    "url": "https://www.regeringen.se/contentassets/702828004cd044a084a6118283c26b91/remiss-av-sou-2025106-om-overforing-av-sjatte-ap-fondens-verksamhet-och-tillgangar-till-andra-ap-fonden.pdf",
+    "pdf_sha256": "cd74be141bed468a4888c807e6fe66f84f37fbe5408be351a1fc1298c0da4760",
+    "expected_count": 5,
+    "expected_contains": [
+      "Första AP-fonden",
+      "Andra AP-fonden",
+      "Tredje AP-fonden",
+      "Fjärde AP-fonden",
+      "Sjätte AP-fonden"
+    ]
+  },
+  {
+    "id": "kostnadsutjamning-2018-quoted-list-markers",
+    "url": "https://www.regeringen.se/contentassets/1408997288b54f7b84259a1e02ac0fce/remissinstanser--lite-mer-lika.-oversyn-av-kostnadsutjamningen-for-kommuner-och-landsting.pdf",
+    "pdf_sha256": "a12e9f753d9dc6ce8c8892d814ddaa73c18b6a2e2c3c20a651e749eb5c05d189",
+    "expected_count": 338,
+    "expected_contains": [
+      "Tanums kommun",
+      "Tomelilla kommun",
+      "Torsås kommun",
+      "Tranås kommun"
+    ]
+  },
+  {
+    "id": "remissmote-2021-time-and-instructions",
+    "url": "https://www.regeringen.se/contentassets/5059e79c76eb463598cdefd4a7029be6/inbjudan-remissmote-inkl-remisslista-s2021_01207.pdf",
+    "pdf_sha256": "3cec04dcd672f9a76c82616137d0e792fd0bcf0ae9caaeee1f6cdabc1da41c4c",
+    "expected_count": 30,
+    "expected_contains": [
+      "Arbetsförmedlingen",
+      "Åre kommun"
+    ]
+  },
+  {
+    "id": "mlc-2018-prose-and-quoted-report-title",
+    "url": "https://www.regeringen.se/contentassets/3a062d21544b410db1e84abbe50c2399/remiss-av-2018-ars-andringar-av-sjoarbetskonventionen-mlc--analys-och-forslag-till-genomforande.pdf",
+    "pdf_sha256": "f566f9843fc5ac3152af94e454238f4f33df0a2a7d7b0e0c0cc63d4117782dde",
+    "expected_count": 27,
+    "expected_contains": [
+      "Arbetsgivarverket",
+      "Transportstyrelsen"
+    ]
+  },
+  {
+    "id": "utfasning-2026-numbering-before-numeric-name",
+    "url": "https://www.regeringen.se/contentassets/5925cf06f9e04b98944d6ee1d87c4479/remissinstanser-for-betankandet-vagen-mot-utfasning-sou-202633.pdf",
+    "pdf_sha256": "2916f9cdf7d6add3979229891ce7714e7f05dcc504776bfe7cd35af46151628f",
+    "expected_count": 112,
+    "expected_contains": [
+      "2030-sekretariatet"
+    ]
+  },
+  {
+    "id": "miljotillsyn-2017-damaged-and-missing-numbered-rows",
+    "url": "https://www.regeringen.se/contentassets/1fe4ce896910457bb8e8cc9b1fa4a922/remiss-betankande-miljotillsyn-och-sanktioner-sou-2017-63.pdf",
+    "pdf_sha256": "a98458dc0805d0457db4d258439bd46300a140ae86967a1e3fafb8c53f2c2116",
+    "expected_count": 146
+  },
+  {
+    "id": "avvecklingssystem-2018-garbled-number-gutter",
+    "url": "https://www.regeringen.se/contentassets/5cdfc7fea1d048b8858baf4b007787be/remissinstanser-avvecklingssystem-som-inte-omfattas-av-eus-regelverk.pdf",
+    "pdf_sha256": "a236faef9e9c62370b100810dd5102d61b0b004f978fa22626a707bdec1feccb",
+    "expected_count": 13,
+    "expected_names": [
+      "Sveriges riksbank",
+      "Hovrätten för Västra Sverige",
+      "Kammarrätten i Stockholm",
+      "Riksgäldskontoret",
+      "Finansinspektionen",
+      "Kronofogdemyndigheten",
+      "Fondbolagens förening",
+      "Sveriges advokatsamfund",
+      "Sparbankernas Riksförbund",
+      "Svensk Försäkring",
+      "Svenska Bankföreningen",
+      "Svenska Fondhandlareföreningen",
+      "CLS Bank International"
+    ]
+  },
+  {
+    "id": "civilsamhalle-2016-remissmissiv-heading",
+    "url": "https://www.regeringen.se/contentassets/b228b7abf1964849a61b0b3bcd2ae18e/remissinstanser-for-palett-for-ett-starkt-civilsamhalle-sou-2016-13/",
+    "pdf_sha256": "2558d2b6a956a50edf1e4d5c8883f616e95f4b7349a90d0a81f7b89902518430",
+    "expected_count": 266,
+    "expected_contains": [
+      "Riksdagens ombudsmän",
+      "Älvräddarna"
+    ]
+  },
+  {
+    "id": "bredbandsnat-2015-numbered-list-under-berorda-heading",
+    "url": "https://www.regeringen.se/contentassets/d6a1dd105f82466aa60f1792edc58a9d/remisslista-promemoria-billigare-utbyggnad-av-bredbandsnat.pdf",
+    "pdf_sha256": "c11fba90fa4987f52a5718a858e6385b130b08c0f7daad2691b78c376dbc0ca8",
+    "expected_count": 109,
+    "expected_contains": [
+      "Justitieombudsmannen",
+      "Sveriges Advokatsamfund"
+    ]
+  },
+  {
+    "id": "regionalt-utvecklingsansvar-2020-prose-after-numbered-list",
+    "url": "https://www.regeringen.se/contentassets/0ac0084787474ad280b217d6db75af97/remissinstanser-forslag-till-lag-om-andring-i-lagen-2010630-om-regionalt-utvecklingsansvar/",
+    "pdf_sha256": "a379a9f5e5f4d042f76af21653e8938e720fd89672d413e153f8f26531612d80",
+    "expected_count": 21,
+    "expected_contains": [
+      "Region Norrbotten"
+    ]
+  },
+  {
+    "id": "ateranvandning-vatten-2018-background-after-list",
+    "url": "https://www.regeringen.se/contentassets/dd53c546c90a455c9517b9b5379a1c8b/remissmissiv-forordning-om-ateranvandning-av-vatten.pdf",
+    "pdf_sha256": "f8ef631b6ab477787f7af8cc32972f3e7e9b6beb1a73a095b0c22804f6ae9af4",
+    "expected_count": 36,
+    "expected_contains": [
+      "Världsnaturfonden WWF"
+    ]
+  },
+  {
+    "id": "energideklaration-2016-private-use-bullets-in-prose",
+    "url": "https://www.regeringen.se/contentassets/6f1b12b5b6a74346a234f07d21e7ab1f/remissmissiv---andring-forordning-om-energideklaration-for-byggnader.pdf",
+    "pdf_sha256": "d6c629291152dbff202c51808425720af0fddaceef0792e1e3533f05e9c2122f",
+    "expected_count": 16,
+    "expected_contains": [
+      "SP Sveriges Tekniska Forskningsinstitut",
+      "DNV GL"
+    ]
+  },
+  {
+    "id": "social-trygghet-2021-ocr-drops-kommerskollegium",
+    "url": "https://www.regeringen.se/contentassets/c777d676f30d47109a11db019da0bc3e/remissinstanser-for-promemorian-forfattningsandringar-inom-omradet-social-trygghet-med-anledning-av-forenade-kungarikets-uttrade-ur-den-europeiska-unionen.pdf",
+    "pdf_sha256": "e1a1938bb1e7592e05f656b7022b55689e1790d9452db4fee51eb04f6c21ceec",
+    "expected_count": 25,
+    "expected_contains": [
+      "Kommerskollegium"
+    ],
+    "known_issue": "Swedish OCR loses the complete Kommerskollegium name at 150 DPI; 300 DPI recovers it but damages other names and all list numbers.",
+    "known_issue_affects_count": true
+  },
+  {
+    "id": "foraldrapenning-2016-ocr-drops-name-before-acronym",
+    "url": "https://www.regeringen.se/contentassets/8852d83f4b67436ebfbe660603181265/remissinstanser-for-begransningar-i-foraldrapenningen-for-foraldrar-som-kommer-till-sverige-med-barn--sou-2016-73-samt-pm-om-forslag-till-ikrafttradande--och-overgangsbestammelser.pdf",
+    "pdf_sha256": "238f66901c4fd0b7f20b9968951db1229e6297ff9cc57bee4bcf0fc8890dd7ec",
+    "expected_count": 91,
+    "expected_contains": [
+      "Justitiekanslern (JK)"
+    ],
+    "known_issue": "Swedish OCR retains only (JK) for Justitiekanslern at 150 DPI; 300 DPI recovers this name but drops other recipient names."
+  },
+  {
+    "id": "filmaldersgranser-2016-prose-mention-is-not-heading",
+    "url": "https://www.regeringen.se/contentassets/d476a93e29024a98b90bc59aec24982f/remissinstanser-for-forslag-till-lag-om-andring-i-lagen-20101882-om-aldersgranser-for-film-som-ska-visas-offentligt.pdf",
+    "pdf_sha256": "601633ff75b1ba26d190cc6363cf91c32509d8f004fb4e59a72c5844d8001da4",
+    "expected_count": 41,
+    "expected_contains": [
+      "Kammarrätten i Stockholm",
+      "UNICEF Sverige"
+    ]
+  },
+  {
+    "id": "informationsutbyte-2019-close-parenthetical-continuations",
+    "url": "https://www.regeringen.se/contentassets/01dcc53dfcb34e24aa82768ee3d433a3/remissinstanser-nagra-andringar-i-fraga-om-informationsutbyte-pa-skatteomradet.pdf",
+    "pdf_sha256": "b6e236bdf4f8cfee91a0fca871c71ed644ea99eddc8c5bbf613a20b72a48bb65",
+    "expected_count": 18,
+    "expected_contains": [
+      "Sjöfartsforum (till den del promemorian avser ytterligare uppgifter i en ansökan om godkännande för tonnagebeskattning)",
+      "Sjöfartsverket (till den del promemorian avser ytterligare uppgifter i en ansökan om godkännande för tonnagebeskattning)",
+      "Svensk Sjöfart (till den del promemorian avser ytterligare uppgifter i en ansökan om godkännande för tonnagebeskattning)",
+      "Transportstyrelsen (till den del promemorian avser ytterligare uppgifter i en ansökan om godkännande för tonnagebeskattning)"
+    ]
+  },
+  {
+    "id": "ekobonus-2018-attachment-count-before-list",
+    "url": "https://www.regeringen.se/contentassets/258df4ff09ef4751ba11dffa16040137/missiv.pdf",
+    "pdf_sha256": "b976e43626f72a06a576a4c5dba2688f0cb90f38e159e636563929d82aca7301",
+    "expected_contains": [
+      "Förvaltningsrätten i Göteborg",
+      "Sveriges Åkeriföretag",
+      "Transportarbetareförbundet",
+      "Transportindustriförbundet"
+    ],
+    "expected_count": 38
+  },
+  {
+    "id": "atgardsplaner-2018-dot-prefixed-organisation",
+    "url": "https://www.regeringen.se/contentassets/a63a26335ed742c18e175b90be8a8b31/remissmissiv-n2018-03604-mrt.pdf",
+    "pdf_sha256": "1dee2eadbe75f7d8f82d82851523ff49a967a3b05f5949e5b37d359dd3f7fdb5",
+    "expected_contains": [
+      "Åklagarmyndigheten"
+    ]
+  },
+  {
+    "id": "kostnadsutjamning-2018-ocr-drops-municipality-names",
+    "url": "https://www.regeringen.se/contentassets/1408997288b54f7b84259a1e02ac0fce/remissinstanser--lite-mer-lika.-oversyn-av-kostnadsutjamningen-for-kommuner-och-landsting.pdf",
+    "pdf_sha256": "a12e9f753d9dc6ce8c8892d814ddaa73c18b6a2e2c3c20a651e749eb5c05d189",
+    "expected_contains": [
+      "Forshaga kommun",
+      "Södertälje kommun",
+      "Trosa kommun"
+    ],
+    "known_issue": "Swedish OCR drops three municipality names while retaining kommun. At 250 DPI these return, but other names regress (including Tomelilla); keep source spellings as expectations."
+  },
+  {
+    "id": "agenda2030-2019-missing-parenthesis-does-not-merge-recipients",
+    "url": "https://www.regeringen.se/contentassets/cb8468ff12924bd6b8d24e077913419f/remiss-av-agenda-2030-delegationens-betankande.pdf",
+    "pdf_sha256": "c60604712e90a6c67adaacdd298e530f6e9530e5e06269f9d67696d06c4acb3f",
+    "expected_contains": [
+      "Skatteverket",
+      "Skogsstyrelsen",
+      "Swedac",
+      "Swedfund"
+    ]
+  },
+  {
+    "id": "ppwr-2023-right-aligned-one-digit-numbers",
+    "url": "https://www.regeringen.se/contentassets/b37defa8dbbe482d889f040188a01bd1/remissmissiv-ppwr.pdf",
+    "pdf_sha256": "a4e985f9e359cc67687f1fcc1c5f733b4fd4615b9041c497649f24dcdaa4944b",
+    "expected_contains": [
+      "All-emballage",
+      "Amazon",
+      "Arla",
+      "Avfall Sverige"
+    ]
+  },
+  {
+    "id": "mottagande-2018-three-digit-numbers-without-space",
+    "url": "https://www.regeringen.se/contentassets/ef332e97a6534f3a9055f0b19b880b84/remissinstanser-for-ett-ordnat-mottagande--gemensamt-ansvar-for-snabb-etablering-eller-atervandande-sou-201822/",
+    "pdf_sha256": "dccc1afb7a2d2bc8c0116e06d7de4d916ef12c5934877bc20174735bd28bf9f8",
+    "expected_contains": [
+      "Sveriges Kommuner och Landsting (SKL)",
+      "Sveriges kvinnolobby",
+      "Överkalix kommun"
+    ]
+  },
+  {
+    "id": "jordbrukspolitik-2022-equals-sign-number-markers",
+    "url": "https://www.regeringen.se/contentassets/32f6ec828dc34e38b1c70555bbe0d434/remissinstanser-for-promemorian-en-ny-lag-med-kompletterande-bestammelser-till-eus-forordningar-om-den-gemensamma-jordbrukspolitiken-och-sammanhallningspolitiken.pdf",
+    "pdf_sha256": "85390652168c693eb56dea36a7cc68e0f934a62bfb3e03d77fa0f4a4bbe7a40b",
+    "expected_contains": [
+      "Bodens kommun",
+      "Borgholms kommun",
+      "Förvaltningsrätten i Jönköping"
+    ]
+  },
+  {
+    "id": "utslappsratter-2020-date-after-invitation-list",
+    "url": "https://www.regeringen.se/contentassets/752405b96ad6428cb884aeba94b9db57/remissmissiv---nytt-regelverk-for-handel-med-utslappratter-i-miljobalken.pdf",
+    "pdf_sha256": "e52b955332bbfa83e289a20caf8b3d1c859d4d63dc3c5e084c4842913beb8285",
+    "expected_count": 90,
+    "expected_contains": [
+      "Alingsås kommun",
+      "Åre kommun"
+    ]
+  },
+  {
+    "id": "vardepapperisering-2018-single-surviving-number",
+    "url": "https://www.regeringen.se/contentassets/54500be169f44564b7bd3949972743ea/remissinstanser-avgifter-for-provning-av-arenden-enligt-eus-forordning-om-vardepapperisering.pdf",
+    "pdf_sha256": "4af2f688026796f2ef755f1f884d46df140ec8f1d67e1ee51aa2b3e6cd76bf68",
+    "expected_count": 15,
+    "expected_names": [
+      "Sveriges riksbank",
+      "Förvaltningsrätten i Stockholm",
+      "Riksgäldskontoret",
+      "Finansinspektionen",
+      "Regelrådet",
+      "Finansbolagens Förening",
+      "Fondbolagens förening",
+      "Föreningen Svenskt Näringsliv",
+      "Företagarna",
+      "Sparbankernas Riksförbund",
+      "Svenska Bankföreningen",
+      "Svenska Fondhandlareföreningen",
+      "Svensk Försäkring",
+      "Svenska pensionsstiftelsers förening (SPFA)",
+      "Tjänstepensionsförbundet"
+    ]
+  },
+  {
+    "id": "produktingripande-2018-damaged-number-gutter",
+    "url": "https://www.regeringen.se/contentassets/0165291f258743069915977c1e5c1392/remissinstanser-finansinspektionens-promemoria-bemyndigande-for-produktingripande-enligt-mifir-och--priips-forordningen--.pdf",
+    "pdf_sha256": "7aed57e5dc8978dc23485cd58c6bdf20ba0b33f872ac275d650f6aa83f6ebe36",
+    "expected_count": 15,
+    "expected_names": [
+      "Finansinspektionen",
+      "Fondbolagens förening",
+      "FOLIV — Försäkringsorganisationen — Liv",
+      "Nasdaq Stockholm AB",
+      "NGM",
+      "Konsumenternas Bank- och finansbyrå",
+      "Konsumenternas försäkringsbyrå",
+      "Konsumentverket",
+      "Sparbankernas riksförbund",
+      "Spotlight Stock Market",
+      "Svenska Bankföreningen",
+      "Svenska Fondhandlareföreningen",
+      "Svensk försäkring",
+      "Svenska försäkringsförmedlares riksförbund",
+      "Sveriges konsumenter"
+    ]
+  },
+  {
+    "id": "statsrad-2016-offset-number-and-distinct-first-recipients",
+    "url": "https://www.regeringen.se/contentassets/cc06690dc1b64546a3f97ef5a9a320e7/remissinstanser-sou-201620-foraldraledighet-for-statsrad/",
+    "pdf_sha256": "b558c9ca54962ce37b8a4c0db7d172b24d804d4b02215a16226824c8f0e6b179",
+    "expected_count": 20,
+    "expected_names": [
+      "Kammarrätten i Stockholm",
+      "Justitiekanslern",
+      "Justitieombudsmannen",
+      "Statsrådsarvodesnämnden",
+      "Försäkringskassan",
+      "Inspektionen för socialförsäkringen",
+      "Pensionsmyndigheten",
+      "Arbetsgivarverket",
+      "Kammarkollegiet",
+      "Skatteverket",
+      "Statens tjänstepensionsverk",
+      "Göteborgs universitet: Nationella sekretariatet för genusforskning",
+      "Lunds universitet",
+      "Stockholms universitet",
+      "Arbetsdomstolen",
+      "Sveriges kommuner och landsting",
+      "Landsorganisationen i Sverige (LO)",
+      "Svenskt näringsliv",
+      "Sveriges Akademikers Centralorganisation (SACO)",
+      "Tjänstemännens centralorganisation (TCO)"
+    ]
+  },
+  {
+    "id": "cirkular-ekonomi-2015-bracket-number-marker",
+    "url": "https://www.regeringen.se/contentassets/0d23552e024346f5a0d117d7de02daca/missiv-remiss-151204.pdf",
+    "pdf_sha256": "e240154e3df2bb3d7a692384148069934f2940db1742db21428bd738a13e8ff8",
+    "expected_count": 175,
+    "expected_contains": [
+      "Gotlands kommun",
+      "Återvinningsindustrierna"
+    ]
+  },
+  {
+    "id": "patentpaket-2023-proposal-bullets-are-not-recipients",
+    "url": "https://www.regeringen.se/contentassets/2e2b733a2db74718bac7a94d90aad7e0/remiss-av-eu-kommissionens-patentpaket.pdf",
+    "pdf_sha256": "6a936b61ee82b2010c9b37bf110386fac8470100fcdc8b8fae97826c75c0c4a3",
+    "expected_count": 76,
+    "expected_contains": [
+      "Åklagarmyndigheten",
+      "ABB"
+    ]
+  },
+  {
+    "id": "forsvarslogistik-2018-all-number-labels-read-as-letters",
+    "url": "https://www.regeringen.se/globalassets/regeringen/dokument/forsvarsdepartementet/remisser/remisslista-fordjupade-oversynen-av-fm-logistikforsorjning-fo-2017-b.pdf",
+    "pdf_sha256": "eff8c531e252894b4b718239fa0fc2bf44198efaeda31929581caae87f133cec",
+    "expected_count": 15,
+    "expected_contains": [
+      "Riksrevisionen",
+      "Sveriges akademikers centralorganisation, SACO-S"
+    ]
+  },
+  {
+    "id": "forarutbildning-2024-native-diacritic-decoding",
+    "url": "https://www.regeringen.se/contentassets/ed8871f53f93447fa907b2683f81c1e1/remissinstanser-for-transportstyrelsens-rapport-tsg-2023-1619-om-oversyn-av-forarutbildningssystemet-for-behorighet-b-ll202401709/",
+    "pdf_sha256": "33deed31d7345026ce5975a717f7d0d984e01ad267b0b5e25effb84447a2bc62",
+    "expected_count": 66,
+    "expected_contains": [
+      "Älvkarleby kommun"
+    ],
+    "known_issue": "LiteParse decodes the native Ä glyph as A. in Älvkarleby on page 3; the rendered PDF has the correct spelling."
+  },
+  {
+    "id": "klimatanpassning-2015-quoted-and-split-three-digit-numbers",
+    "url": "https://www.regeringen.se/contentassets/d1e412709b4d4dafa60b4422f0d73aa5/remissinstanser-for-remiss-av-rapporten-underlag-till-kontrollstation-2015-for-anpassning-till-ett-forandrat-klimat.pdf",
+    "pdf_sha256": "d8392de419ff2aa1cbc38c85f79a1dd565c04b7b21d07453ea151e0f1f6087d5",
+    "expected_count": 134,
+    "expected_contains": [
+      "Söderköpings kommun",
+      "Vellinge kommun",
+      "Kommunala samverkansorganet Region Västerbotten",
+      "Ångpanneföreningen, ÅF"
+    ]
+  },
+  {
+    "id": "fardskrivare-2025-misspelled-invitation-label",
+    "url": "https://www.regeringen.se/contentassets/25cebc0305ff48cbbfd977834a3d40bb/remissmissinstanser-for-promemorian-kraftfullare-atgarder-mot-manipulation-och-allvarligt-missbruk-av-fardskrivare.pdf",
+    "pdf_sha256": "73814d7acaa4177f96f9ff21584b498b28dd20f476170e4153528470fd986ed5",
+    "expected_count": 43,
+    "expected_contains": [
+      "AB Volvo",
+      "Åklagarmyndigheten"
+    ]
+  },
+  {
+    "id": "laddpunkt-2025-remissbrev",
+    "url": "https://www.regeringen.se/contentassets/3cbd757ce9c4484ab65facc3a7efdc51/remissbrev-ds-2025_13-ratt-att-installera-laddpunk-hemma.pdf",
+    "pdf_sha256": "62b75df93d06f7d81a6dd38a821bbf3765b8b1e3ea70b38632c4132da026617e",
+    "expected_count": 48,
+    "expected_contains": [
+      "BioDriv Öst",
+      "Villaägarnas riksförbund"
+    ]
+  },
+  {
+    "id": "lufttransport-2024-misspelled-invitation-label",
+    "url": "https://www.regeringen.se/contentassets/380262d3d368405c825bb55de6ad913e/remissmissinstanser-for-promemorian-forslag-till-lag-med-kompletterande-bestammelser-till-eu-forordningen-om-sakerstallande-av-lika-villkor-for-hallbar-lufttransport/",
+    "pdf_sha256": "2d70f7d70ed5b3864c9457959e577b358df4c6adcbfb991a41016c14941f2506",
+    "expected_count": 27,
+    "expected_contains": [
+      "Air BP Sweden AB",
+      "Vätgas Sverige"
+    ]
+  },
+  {
+    "id": "langvaga-kollektivtrafik-2021-remissinbjudan",
+    "url": "https://www.regeringen.se/contentassets/e3b478fce7d84d6488331e697d740c8a/remissinbjudan.pdf",
+    "pdf_sha256": "b4a0c0c89eccd143c918ec16483dde6f2eed33920f27b92877f78494435b7ec8",
+    "expected_count": 42,
+    "expected_contains": [
+      "FlixBus Sverige",
+      "Örnsköldsviks kommun"
+    ]
+  },
+  {
+    "id": "forebyggande-sjukpenning-2020-remissbrev",
+    "url": "https://www.regeringen.se/contentassets/50a819b801584cbaa89fdba1314f8e8d/remissbrev-tillfalliga-bestammelser-om-forebyggande-sjukpenning-med-anledning-av-sjukdomen-covid-19.pdf",
+    "pdf_sha256": "c0537ca34a71fe4a0d82c67df7b040dcd3847321fe9f4e0da70236660cebb700",
+    "expected_count": 32,
+    "expected_contains": [
+      "Anhörigas riksförbund",
+      "Tjänstemännens centralorganisation (TCO)"
+    ]
+  },
+  {
+    "id": "forskningsprogram-2025-alternative-invited-institutions-heading",
+    "url": "https://www.regeringen.se/contentassets/ab333520f94443f5bc9d51cfe476c456/inbjudan-om-yttrande-om-europeiska-kommissionens-forslag-till-nasta-ramprogram-for-forskning-och-innovation-samt-det-tillhorande-specifika-programmet-for-dess-implementering.pdf",
+    "pdf_sha256": "c17f9902381c480d0e0750bafcaba69d083873127069eb8544139a0049871ece",
+    "expected_count": 60,
+    "expected_contains": [
+      "Almi invest",
+      "Volvo Group"
+    ]
+  },
+  {
+    "id": "forvaltning-2015-covering-remissbrev-without-list",
+    "url": "https://www.regeringen.se/contentassets/c2f7ff45fe1d4a78af2289f728091960/remissbrev-sou-201566-en-forvaltning-som-haller-ihop.pdf",
+    "pdf_sha256": "e6fdba270a18a001a077304e24b13a4e2a1ba8e7676a658dd96b3db7d6b2d4c2",
+    "expected_names": null
+  },
+  {
+    "id": "humanmaterial-2026-bare-remiss-title",
+    "url": "https://www.regeringen.se/contentassets/db4f9525c03044ffadb643c11ede613d/remiss-socialstyrelsens-rapport-rattsliga-anpassningar-till-eus-humanmaterialforordning.pdf",
+    "pdf_sha256": "7150caf68d025100516857541e66d8b2602ce45a910adf4839c416413df1400f",
+    "expected_count": 87,
+    "expected_contains": [
+      "Barnombudsmannen",
+      "Biobank Sverige",
+      "Åklagarmyndigheten",
+      "Örebro universitet"
+    ]
+  },
+  {
+    "id": "aktivitetskrav-barn-2026-bare-remiss-title",
+    "url": "https://www.regeringen.se/contentassets/d54500690bd1488c8a2b4f809531e8d8/remiss-ds-2026_19-utokad-tillsyn-over-barn-vars-forldrar.pdf",
+    "pdf_sha256": "ace761e0ce35700d4da3e908d09274d5677fbb9b02cfa15e58a003ee9dc105f3",
+    "expected_count": 87,
+    "expected_contains": [
+      "Älvdalens kommun",
+      "Östersunds kommun"
+    ]
+  },
+  {
+    "id": "kollektivtrafik-2016-title-without-list-heading",
+    "url": "https://www.regeringen.se/contentassets/06d2654771ef46c89861833b80af1f00/remissbrev-kollektivtrafik.pdf",
+    "pdf_sha256": "734b0711d82055673a573da7e640cbea3382caf7837553adb93a86bb2ed8e9ba",
+    "expected_count": 60,
+    "expected_contains": [
+      "Kammarrätten i Stockholm",
+      "Förvaltningsrätten i Malmö",
+      "Göteborgs tingsrätt",
+      "Domstolsverket",
+      "Konkurrensverket",
+      "Upphandlingsmyndigheten",
+      "Regelrådet",
+      "Sjöfartsverket",
+      "Trafikanalys",
+      "Transdev Sverige AB"
+    ]
+  },
+  {
+    "id": "rehabilitering-2017-delivery-prose",
+    "url": "https://www.regeringen.se/contentassets/030be4e471d94361a88134089b32750c/remiss-forstarkt-rehabilitering-for-atergang-i-arbete.pdf",
+    "pdf_sha256": "af6edef13e5f88ef3b12ce1fd26b2f427f110207df62ccbdf88f546ecf35ec8a",
+    "expected_count": 91,
+    "expected_contains": [
+      "Skandia"
+    ],
+    "expected_excludes": [
+      "Promemorian skicka"
+    ]
+  },
+  {
+    "id": "byggkonkurrens-2016-ocr-drops-vasakronan",
+    "url": "https://www.regeringen.se/contentassets/ee86c134a6664c7a9d3699b464abfd73/remiss-sou-2015_105-plats-for-fler-som-bygger-mer.pdf",
+    "pdf_sha256": "e6f0d8dfe1ae7c0ba146b2d62d1f5882e110bda98c3895fa4017e3df17a3f211",
+    "expected_count": 99,
+    "expected_contains": [
+      "Vasakronan",
+      "Wallenstam"
+    ],
+    "expected_excludes": [
+      "Byggkonkurrensutredningen",
+      "remitteras härmed till",
+      "97."
+    ],
+    "known_issue": "Swedish OCR drops Vasakronan at recipient 97 on page 3, retaining only its number. The rendered PDF contains the name.",
+    "known_issue_affects_count": true
   }
 ]

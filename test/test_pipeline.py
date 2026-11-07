@@ -82,17 +82,17 @@ def test_interruption_preserves_completed_extractions(data_dir, tmp_path, monkey
 
     def extract(path):
         if sha256(documents[1].url.encode()).hexdigest() in path:
-            raise ValueError("Cannot parse second document")
+            raise KeyboardInterrupt()
         return ["Barnombudsmannen"]
 
     monkeypatch.setattr(Downloader, "get_file", download)
     monkeypatch.setattr(DocumentParser, "extract_list", extract)
-    with pytest.raises(ValueError, match="Cannot parse second"):
+    with pytest.raises(KeyboardInterrupt):
         extract_lists(data_dir, tmp_path)
     stored = load(Document, data_dir)
     assert stored[0].extraction_status == "complete"
-    assert stored[1].extraction_status == "failed"
-    assert stored[1].extraction_error == "Cannot parse second document"
+    assert stored[1].extraction_status == "pending"
+    assert stored[1].extraction_error is None
     assert [row.name for row in load(Consultee, data_dir)] == ["Barnombudsmannen"]
 
     monkeypatch.setattr(
@@ -183,14 +183,61 @@ def test_non_pdf_invitations_are_logged_skipped_and_processing_continues(
     assert requests == [doc.url for doc in documents]
 
 
-def test_html_error_response_is_not_silently_skipped(data_dir, tmp_path, monkeypatch):
+def test_html_error_response_is_logged_as_failed(
+    data_dir, tmp_path, monkeypatch, caplog
+):
     save(Document, [invitation("https://example.org/list.pdf")], data_dir)
     monkeypatch.setattr(
         downloader, "urlopen", lambda request, timeout: BytesIO(b"<html>error</html>")
     )
-    with pytest.raises(ValueError, match="Expected a PDF"):
-        extract_lists(data_dir, tmp_path)
+    extract_lists(data_dir, tmp_path)
     assert load(Document, data_dir)[0].extraction_status == "failed"
+    assert "Expected a PDF" in caplog.text
+
+
+@pytest.mark.parametrize(
+    "error", [TimeoutError("Download timed out"), RuntimeError("Parser failed")]
+)
+def test_document_error_does_not_stop_the_run_or_retain_stale_names(
+    data_dir, tmp_path, monkeypatch, caplog, error
+):
+    documents = [
+        invitation("https://example.org/broken.pdf"),
+        invitation("https://example.org/good.pdf"),
+    ]
+    documents[0].extraction_status = "complete"
+    save(Document, documents, data_dir)
+    save(
+        Consultee,
+        [
+            Consultee(
+                remiss_url=documents[0].remiss_url,
+                document_url=documents[0].url,
+                name="Stale result",
+            )
+        ],
+        data_dir,
+    )
+
+    def download(url, path):
+        if url == documents[0].url and isinstance(error, TimeoutError):
+            raise error
+        path.write_bytes(b"%PDF-test")
+
+    def extract(path):
+        if sha256(documents[0].url.encode()).hexdigest() in path:
+            raise error
+        return ["Barnombudsmannen"]
+
+    monkeypatch.setattr(Downloader, "get_file", download)
+    monkeypatch.setattr(DocumentParser, "extract_list", extract)
+    extract_lists(data_dir, tmp_path, reset=True)
+    stored = load(Document, data_dir)
+    assert [d.extraction_status for d in stored] == ["failed", "complete"]
+    assert stored[0].extraction_error == str(error)
+    assert documents[0].url in caplog.text
+    assert str(error) in caplog.text
+    assert [row.name for row in load(Consultee, data_dir)] == ["Barnombudsmannen"]
 
 
 def test_extraction_logs_progress_and_unrecognised_lists(
