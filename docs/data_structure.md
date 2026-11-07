@@ -1,7 +1,7 @@
 # Datasets
 
 OpenRemiss stores three Parquet files under `data/`. Records are validated
-with the Pydantic models in `models.py` and read or written through pandas.
+with the Pydantic models in `models.py` and read or written through PyArrow.
 
 | File | Contents | Key |
 | --- | --- | --- |
@@ -14,24 +14,23 @@ have an extraction status of `pending`, `complete`, `failed`, or `skipped`; othe
 documents have no extraction status. Original names remain available alongside
 cleaned names.
 
-## Analyse with pandas
+## Analyse the records
 
 ```python
-import pandas as pd
+from collections import Counter
 
-remisser = pd.read_parquet("data/remisser.parquet")
-documents = pd.read_parquet("data/documents.parquet")
-consultees = pd.read_parquet("data/consultees.parquet")
+from models import Document, Remiss
+from service.storage import load
+
+remisser = {remiss.url: remiss for remiss in load(Remiss)}
+answers = [doc for doc in load(Document) if doc.kind == "answer"]
 
 # Organisations submitting the most response documents
-answers = documents[documents["kind"] == "answer"]
-print(answers["organisation"].value_counts().head(20))
+print(Counter(doc.organisation for doc in answers if doc.organisation).most_common(20))
 
 # Responses with consultation titles and departments
-responses = answers.merge(
-    remisser[["url", "title", "issuer"]],
-    left_on="remiss_url",
-    right_on="url",
-    suffixes=("", "_remiss"),
-)
+responses = [
+    (doc.organisation, remisser[doc.remiss_url].title, remisser[doc.remiss_url].issuer)
+    for doc in answers
+]
 ```

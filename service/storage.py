@@ -1,44 +1,51 @@
 from pathlib import Path
 from typing import Sequence, TypeVar
 
-import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
 from pydantic import BaseModel
 
 from models import Consultee, Document, Remiss
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 Record = TypeVar("Record", bound=BaseModel)
-TABLES: dict[type[BaseModel], tuple[str, dict[str, str]]] = {
+TABLES: dict[type[BaseModel], tuple[str, pa.Schema]] = {
     Remiss: (
         "remisser",
-        {
-            "url": "string",
-            "title": "string",
-            "published_on": "datetime64[ns]",
-            "issuer": "string",
-            "diary_number": "string",
-        },
+        pa.schema(
+            [
+                ("url", pa.string()),
+                ("title", pa.string()),
+                ("published_on", pa.date32()),
+                ("issuer", pa.string()),
+                ("diary_number", pa.string()),
+            ]
+        ),
     ),
     Document: (
         "documents",
-        {
-            "remiss_url": "string",
-            "url": "string",
-            "name": "string",
-            "kind": "string",
-            "organisation": "string",
-            "extraction_status": "string",
-            "extraction_error": "string",
-        },
+        pa.schema(
+            [
+                ("remiss_url", pa.string()),
+                ("url", pa.string()),
+                ("name", pa.string()),
+                ("kind", pa.string()),
+                ("organisation", pa.string()),
+                ("extraction_status", pa.string()),
+                ("extraction_error", pa.string()),
+            ]
+        ),
     ),
     Consultee: (
         "consultees",
-        {
-            "remiss_url": "string",
-            "document_url": "string",
-            "name": "string",
-            "cleaned_name": "string",
-        },
+        pa.schema(
+            [
+                ("remiss_url", pa.string()),
+                ("document_url", pa.string()),
+                ("name", pa.string()),
+                ("cleaned_name", pa.string()),
+            ]
+        ),
     ),
 }
 
@@ -48,8 +55,7 @@ def load(model: type[Record], data_dir: Path = DATA_DIR) -> list[Record]:
     path = data_dir / f"{name}.parquet"
     if not path.exists():
         return []
-    frame = pd.read_parquet(path, engine="pyarrow")
-    records = frame.astype(object).where(pd.notna(frame), None).to_dict("records")
+    records = pq.read_table(path).to_pylist()
     return [model.model_validate(record) for record in records]
 
 
@@ -61,17 +67,12 @@ def save(
     rows = [
         model.model_validate(record.model_dump()).model_dump() for record in records
     ]
-    frame = pd.DataFrame(
-        {
-            field: pd.Series([row[field] for row in rows], dtype=dtype)
-            for field, dtype in schema.items()
-        }
-    )
+    table = pa.Table.from_pylist(rows, schema=schema)
     data_dir.mkdir(parents=True, exist_ok=True)
     path = data_dir / f"{name}.parquet"
     partial = path.with_suffix(".parquet.tmp")
     try:
-        frame.to_parquet(partial, engine="pyarrow", index=False)
+        pq.write_table(table, partial)
         partial.replace(path)
     finally:
         partial.unlink(missing_ok=True)

@@ -8,7 +8,7 @@ from PDFs, and cleans organisation names. The results are stored as Parquet file
 to help explore which organisations are invited and which respond.
 
 - [Setup, usage, and development](docs/getting_started.md)
-- [Datasets and pandas examples](docs/data_structure.md)
+- [Datasets and examples](docs/data_structure.md)
 
 Organisation names are inferred from attachment names and PDF contents;
 they may require manual review.

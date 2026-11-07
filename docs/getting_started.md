@@ -52,7 +52,7 @@ Matching is heuristic and may require manual review.
 Commands show progress with tqdm. Detailed logs and separate warning/error logs
 are saved under `tmp/logs/`.
 
-See [the datasets and pandas examples](data_structure.md) for analysing the results.
+See [the datasets and examples](data_structure.md) for analysing the results.
 
 ## Development
 

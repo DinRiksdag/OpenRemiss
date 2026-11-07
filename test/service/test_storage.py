@@ -1,7 +1,8 @@
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
-import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
 import pytest
 from pydantic import ValidationError
 
@@ -15,9 +16,7 @@ def test_empty_dataset_has_a_stable_schema(data_dir, model):
     save(model, [], data_dir)
     assert load(model, data_dir) == []
     name, schema = TABLES[model]
-    frame = pd.read_parquet(data_dir / f"{name}.parquet")
-    assert frame.columns.tolist() == list(schema)
-    assert all(str(frame[column].dtype) == dtype for column, dtype in schema.items())
+    assert pq.read_schema(data_dir / f"{name}.parquet") == schema
 
 
 def test_roundtrip_dates_unicode_and_nullable_fields(data_dir):
@@ -59,9 +58,10 @@ def test_roundtrip_dates_unicode_and_nullable_fields(data_dir):
     assert load(Remiss, data_dir) == remisser
     assert load(Document, data_dir) == documents
     assert load(Consultee, data_dir) == consultees
-    frame = pd.read_parquet(data_dir / "remisser.parquet")
-    assert pd.api.types.is_datetime64_any_dtype(frame["published_on"])
-    assert "__index_level_0__" not in frame.columns
+    table = pq.read_table(data_dir / "remisser.parquet")
+    assert table.column("published_on").to_pylist() == [date(2026, 11, 6)]
+    assert pa.types.is_date32(table.schema.field("published_on").type)
+    assert "__index_level_0__" not in table.column_names
 
 
 def test_invalid_stored_rows_are_rejected(data_dir):
@@ -72,9 +72,12 @@ def test_invalid_stored_rows_are_rejected(data_dir):
         kind="answer",
     )
     save(Document, [document], data_dir)
-    frame = pd.read_parquet(data_dir / "documents.parquet")
-    frame.loc[0, "kind"] = "not-a-document-kind"
-    frame.to_parquet(data_dir / "documents.parquet", index=False)
+    table = pq.read_table(data_dir / "documents.parquet")
+    rows = table.to_pylist()
+    rows[0]["kind"] = "not-a-document-kind"
+    pq.write_table(
+        pa.Table.from_pylist(rows, schema=table.schema), data_dir / "documents.parquet"
+    )
     with pytest.raises(ValidationError):
         load(Document, data_dir)
 
@@ -89,12 +92,52 @@ def test_failed_write_preserves_previous_snapshot(data_dir, monkeypatch):
     save(Document, [document], data_dir)
     document.name = "Changed"
 
-    def broken_write(self, path, **kwargs):
+    def broken_write(table, path, **kwargs):
         Path(path).write_bytes(b"incomplete")
         raise OSError("Disk full")
 
-    monkeypatch.setattr(pd.DataFrame, "to_parquet", broken_write)
+    monkeypatch.setattr(pq, "write_table", broken_write)
     with pytest.raises(OSError, match="Disk full"):
         save(Document, [document], data_dir)
     assert load(Document, data_dir)[0].name == "Original"
     assert not list(data_dir.glob("*.tmp"))
+
+
+def test_reads_publication_timestamps_from_existing_parquet_files(data_dir):
+    remiss = Remiss(
+        url="https://example.org/remiss",
+        title="Översyn",
+        published_on=date(2026, 11, 6),
+    )
+    row = remiss.model_dump()
+    row["published_on"] = datetime(2026, 11, 6)
+    legacy_schema = pa.schema(
+        [
+            ("url", pa.large_string()),
+            ("title", pa.large_string()),
+            ("published_on", pa.timestamp("ns")),
+            ("issuer", pa.large_string()),
+            ("diary_number", pa.large_string()),
+        ]
+    )
+    data_dir.mkdir()
+    pq.write_table(
+        pa.Table.from_pylist([row], schema=legacy_schema), data_dir / "remisser.parquet"
+    )
+    assert load(Remiss, data_dir) == [remiss]
+    save(Remiss, [remiss], data_dir)
+    assert load(Remiss, data_dir) == [remiss]
+
+
+def test_invalid_record_does_not_replace_previous_snapshot(data_dir):
+    document = Document(
+        remiss_url="https://example.org/r",
+        url="https://example.org/d",
+        name="Example",
+        kind="answer",
+    )
+    save(Document, [document], data_dir)
+    invalid = document.model_copy(update={"kind": "invalid"})
+    with pytest.raises(ValidationError):
+        save(Document, [invalid], data_dir)
+    assert load(Document, data_dir) == [document]
