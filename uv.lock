@@ -400,6 +400,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "pymupdf" },
     { name = "tabula-py" },
+    { name = "tqdm" },
 ]
 
 [package.dev-dependencies]
@@ -422,6 +423,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.14.3,<3" },
     { name = "pymupdf" },
     { name = "tabula-py", specifier = ">=2.10.0,<3" },
+    { name = "tqdm", specifier = ">=4.70.1" },
 ]
 
 [package.metadata.requires-dev]

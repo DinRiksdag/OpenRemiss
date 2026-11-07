@@ -1,5 +1,6 @@
 from hashlib import sha256
 from io import BytesIO
+import logging
 
 import pytest
 
@@ -189,3 +190,32 @@ def test_html_error_response_is_not_silently_skipped(data_dir, tmp_path, monkeyp
     with pytest.raises(ValueError, match="Expected a PDF"):
         extract_lists(data_dir, tmp_path)
     assert load(Document, data_dir)[0].extraction_status == "failed"
+
+
+def test_extraction_logs_progress_and_unrecognised_lists(
+    data_dir, tmp_path, monkeypatch, caplog
+):
+    documents = [
+        invitation("https://example.org/unrecognised.pdf"),
+        invitation("https://example.org/valid.pdf"),
+    ]
+    save(Document, documents, data_dir)
+    for doc in documents:
+        (tmp_path / (sha256(doc.url.encode()).hexdigest() + ".pdf")).write_bytes(
+            b"%PDF-test"
+        )
+    results = iter([None, ["Barnombudsmannen"]])
+    monkeypatch.setattr(DocumentParser, "extract_list", lambda path: next(results))
+    caplog.set_level(logging.INFO, logger="build_remissinstans_list")
+
+    extract_lists(data_dir, tmp_path)
+
+    assert "Processing 2 invitation lists" in caplog.text
+    assert f"[1/2] {documents[0].url} (cached PDF)" in caplog.text
+    assert f"No invitation list could be extracted: {documents[0].url}" in caplog.text
+    assert f"[2/2] {documents[1].url} (cached PDF)" in caplog.text
+    assert "1 complete, 1 failed, 0 skipped; 1 organisation records" in caplog.text
+    assert [doc.extraction_status for doc in load(Document, data_dir)] == [
+        "failed",
+        "complete",
+    ]

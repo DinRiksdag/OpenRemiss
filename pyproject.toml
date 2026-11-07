@@ -19,6 +19,7 @@ dependencies = [
     "pydantic>=2.14.3,<3",
     "pymupdf",
     "tabula-py>=2.10.0,<3",
+    "tqdm>=4.70.1",
 ]
 
 [dependency-groups]

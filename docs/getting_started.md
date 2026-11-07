@@ -48,6 +48,9 @@ uv run python clean_data.py
 Cleans names inferred from response attachment names and invitation lists.
 Matching is heuristic and may require manual review.
 
+Commands show progress with tqdm. Detailed logs and separate warning/error logs
+are saved under `tmp/logs/`.
+
 See [the datasets and pandas examples](data_structure.md) for analysing the results.
 
 ## Development

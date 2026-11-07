@@ -1,5 +1,7 @@
 from collections import Counter, defaultdict
 
+from tqdm import tqdm
+
 from models import Consultee, Document
 
 
@@ -49,7 +51,12 @@ def clean_records(documents: list[Document], consultees: list[Consultee]) -> Non
     groups = defaultdict(list)
     for answer in answers:
         groups[answer.remiss_url].append(answer)
-    for group in groups.values():
+    for group in tqdm(
+        groups.values(),
+        desc="Cleaning response names",
+        unit="consultation",
+        disable=None,
+    ):
         common = (
             Cleaner.long_substr([doc.name for doc in group]) if len(group) > 3 else ""
         )
@@ -62,14 +69,18 @@ def clean_records(documents: list[Document], consultees: list[Consultee]) -> Non
         for name, _ in Counter(doc.organisation for doc in answers).most_common(250)
         if name
     ]
-    for answer in answers:
+    for answer in tqdm(
+        answers, desc="Matching response names", unit="name", disable=None
+    ):
         answer.organisation = Cleaner.deep_clean(answer.organisation, popular)
     popular = [
         name
         for name, _ in Counter(doc.organisation for doc in answers).most_common(250)
         if name
     ]
-    for consultee in consultees:
+    for consultee in tqdm(
+        consultees, desc="Cleaning invited names", unit="name", disable=None
+    ):
         consultee.cleaned_name = Cleaner.deep_clean(
             Cleaner.light_clean(consultee.name), popular
         )

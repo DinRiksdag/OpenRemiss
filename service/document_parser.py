@@ -1,3 +1,4 @@
+import logging
 import re
 
 import pandas as pd
@@ -5,6 +6,8 @@ from pikepdf import Pdf
 
 from service.ocr import OCR
 from service.tabula_parser import TabulaParser
+
+logger = logging.getLogger(__name__)
 
 
 class DocumentParser(object):
@@ -22,7 +25,7 @@ class DocumentParser(object):
             DocumentParser.has_scanned_pages(filename, all_pages)
             and "-ocr.pdf" not in filename
         ):
-            print("Document is at least partly a scan, attempting ocr...")
+            logger.info("Scanned pages detected; running OCR: %s", filename)
             filename = OCR.ocr(filename)
 
             return DocumentParser.extract_list(filename)
@@ -33,10 +36,10 @@ class DocumentParser(object):
         start = DocumentParser.detect_start(all_rows)
 
         if not start:
-            print("Document is most likely not a remissinstans.")
+            logger.info("No invitation list heading found: %s", filename)
 
             if "-ocr.pdf" not in filename:
-                print("Attempting a scan in case it fixes an issue...")
+                logger.info("Trying OCR to find an invitation list: %s", filename)
                 filename = OCR.ocr(filename)
 
                 return DocumentParser.extract_list(filename)

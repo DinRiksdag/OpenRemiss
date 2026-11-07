@@ -1,6 +1,8 @@
 import re
 from urllib.parse import urljoin
 
+from tqdm import tqdm
+
 from models import Consultee, Document, DocumentKind, Remiss
 from service.cleaner import Cleaner
 from service.storage import DATA_DIR, load, save
@@ -25,7 +27,9 @@ def sync_remisser(items, codes, data_dir=DATA_DIR):
         for key, doc in old_documents.items()
         if doc.remiss_url not in refreshed_urls
     }
-    for item in items:
+    for item in tqdm(
+        items, desc="Importing consultations", unit="consultation", disable=None
+    ):
         url = urljoin(ORIGINAL_URL, item["url"])
         identifier = item.get("id")
         remisser[url] = Remiss(

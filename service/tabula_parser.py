@@ -1,5 +1,8 @@
+import logging
 import subprocess
 import tabula
+
+logger = logging.getLogger(__name__)
 
 
 class TabulaParser(object):
@@ -11,9 +14,10 @@ class TabulaParser(object):
                 pages=pages,
                 pandas_options={"header": None},
                 area=area,
+                force_subprocess=True,
             )
         except subprocess.CalledProcessError:
-            print(f"Document {filename} was most probably not a PDF")
+            logger.exception("Tabula failed for %s (pages %s)", filename, pages)
             return None
 
     @staticmethod
