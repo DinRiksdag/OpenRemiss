@@ -3,4 +3,6 @@
 *.pdf
 __pycache__
 env/
+.venv/
+.pytest_cache/
 .DS_Store

@@ -11,6 +11,8 @@ You can read more on how to run the script and which data it saves.
 
 The result is saved in an SQL database.
 
+For installation and usage with **uv**, see the [getting started guide](docs/getting_started.md).
+
 # Why? 📕📗📘
 
 <img src='./illustration.svg'/>
