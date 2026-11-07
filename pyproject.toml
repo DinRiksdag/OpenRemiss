@@ -3,22 +3,12 @@ name = "openremiss"
 version = "0.3.0"
 description = "Collect and structure Swedish government consultations and responses."
 readme = "README.md"
-# Keep the legacy dependency stack on a tested Python minor version.
 requires-python = ">=3.11,<3.12"
 dependencies = [
-    "ocrmypdf==14.1.0",
-    "packaging==23.1",
+    "liteparse>=2.18,<3",
     "pandas>=3.1.1,<4",
-    "pdf2image",
-    # OCRmyPDF uses this maintained fork; do not also install pdfminer,
-    # which writes to the same Python namespace.
-    "pdfminer-six",
-    # 8.x provides Apple Silicon wheels and retains OCRmyPDF 14's APIs.
-    "pikepdf>=8,<9",
     "pyarrow>=26.0.1,<27",
     "pydantic>=2.14.3,<3",
-    "pymupdf",
-    "tabula-py>=2.10.0,<3",
     "tqdm>=4.70.1",
 ]
 

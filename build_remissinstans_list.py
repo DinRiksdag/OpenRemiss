@@ -79,7 +79,6 @@ def extract_document(
     document, documents, consultees, cache_dir, data_dir, index, total
 ):
     filepath = cache_dir / (sha256(document.url.encode()).hexdigest() + ".pdf")
-    ocr_filepath = filepath.with_name(filepath.stem + "-ocr.pdf")
     logger.info(
         "[%d/%d] %s (%s)",
         index,
@@ -90,8 +89,7 @@ def extract_document(
     try:
         if not filepath.exists():
             Downloader.get_file(document.url, filepath)
-        source = ocr_filepath if ocr_filepath.exists() else filepath
-        names = DocumentParser.extract_list(str(source))
+        names = DocumentParser.extract_list(str(filepath))
     except UnsupportedDocumentError as error:
         document.extraction_status = "skipped"
         document.extraction_error = str(error)

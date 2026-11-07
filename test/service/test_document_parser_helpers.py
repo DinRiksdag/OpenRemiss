@@ -1,21 +1,34 @@
 import pytest
-import pandas as pd
 
-from service.document_parser import DocumentParser
-from service.tabula_parser import TabulaParser
+from service import document_parser
+from service.document_parser import DocumentParser, ParsedDocument, ParsedPage, TextBox
 
 
-def test_extracts_names_from_tabula_dataframes(monkeypatch):
-    first_page = pd.DataFrame(
-        {
-            "numbers": [None, 1, None],
-            "names": ["Remissinstanser", "Göteborgs universitet", None],
-        }
+def test_extracts_names_from_liteparse_coordinates(monkeypatch):
+    document = ParsedDocument(
+        text="",
+        pages=[
+            ParsedPage(
+                height=842,
+                items=[
+                    TextBox(text="Remissinstanser", x=70, y=160, width=100, height=12),
+                    TextBox(text="1.", x=70, y=180, width=10, height=12),
+                    TextBox(
+                        text="Göteborgs universitet", x=90, y=180, width=150, height=12
+                    ),
+                ],
+            ),
+            ParsedPage(
+                height=842,
+                items=[
+                    TextBox(
+                        text="2. Barnombudsmannen", x=70, y=70, width=150, height=12
+                    ),
+                ],
+            ),
+        ],
     )
-    next_page = pd.DataFrame({"names": ["2. Barnombudsmannen"], "empty": [None]})
-    monkeypatch.setattr(TabulaParser, "extract_first_page", lambda path: [first_page])
-    monkeypatch.setattr(TabulaParser, "extract_next_pages", lambda path: [next_page])
-    monkeypatch.setattr(DocumentParser, "has_scanned_pages", lambda path, pages: False)
+    monkeypatch.setattr(document_parser, "parse_document", lambda path: document)
 
     assert DocumentParser.extract_list("example.pdf") == [
         "Göteborgs universitet",
@@ -23,7 +36,10 @@ def test_extracts_names_from_tabula_dataframes(monkeypatch):
     ]
 
 
-@pytest.mark.parametrize("heading", ["Remissinstanser", "Sändlista"])
+@pytest.mark.parametrize(
+    "heading",
+    ["Remissinstanser", "Sändlista", "Remisslista E-delegationens delbetänkande"],
+)
 def test_detect_list_boundaries(heading):
     rows = ["Department", heading, "Stockholms universitet", "Remissvar skickas till"]
     start = DocumentParser.detect_start(rows)

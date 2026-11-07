@@ -12,8 +12,8 @@ uv sync --locked
 The project uses Python 3.11. Dependencies are declared in `pyproject.toml`
 and locked in `uv.lock`.
 
-PDF extraction requires Java for Tabula, Tesseract with Swedish language data,
-and Ghostscript for OCR.
+PDF extraction uses LiteParse with bundled Tesseract. The Swedish OCR model is
+downloaded and cached on first use; no additional system tools are required.
 
 ## Run the pipeline
 
@@ -35,7 +35,8 @@ uv run python build_remissinstans_list.py
 ```
 
 Downloads invitation-list PDFs from the supplied URLs and extracts organisation
-names, using OCR when needed. Downloaded and OCR files are cached under `tmp/`.
+names, using OCR when needed. PDFs, extracted text, and coordinates are cached
+under `tmp/`.
 Completed extractions are saved as the command progresses and skipped on later runs.
 Non-PDF files are logged and recorded as skipped.
 
