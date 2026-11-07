@@ -26,6 +26,8 @@ package = false
 [tool.pytest.ini_options]
 testpaths = ["test"]
 pythonpath = ["."]
+addopts = "-m 'not quality'"
+markers = ["quality: manual extraction quality and timing checks against real PDFs"]
 
 [tool.ruff]
 target-version = "py311"

@@ -64,7 +64,14 @@ uv run pytest -ra
 ```
 
 Use `uv run ruff check --fix .` and `uv run ruff format .` to apply fixes.
-Historical PDF tests skip when their fixtures under `tmp/` are missing.
+Run the real-PDF quality suite manually (excluded from the default run and CI):
+
+```shell
+uv run pytest -m quality --durations=0 -ra
+```
+
+Cases in `test/quality/cases.json` check list sizes and/or exact names. PDFs are
+downloaded into `tmp/` when missing; each run repeats extraction and reports timings.
 
 Install and run the hooks:
 
