@@ -1,58 +1,41 @@
-import urllib.parse
+import json
+from pathlib import Path
+from shutil import copyfileobj
+from urllib.request import Request, urlopen
 
-from service.selenium_driver import Selenium_Driver
-from service.web_parser import WebParser
-
-REGERING_URL = "https://www.regeringen.se"
-REGERING_QUERY_URL = REGERING_URL + "/Filter/GetFilteredItems?"
-
-
-def parameters(page_size, page_number):
-    params = {
-        "lang": "sv",
-        "filterType": "Taxonomy",
-        "preFilteredCategories": 2099,
-        "displayLimited": "true",
-        "pageSize": page_size,
-        "page": page_number,
-    }
-    return urllib.parse.urlencode(params)
+G0V_URL = "https://g0v.se"
 
 
-class Downloader(object):
-    def __init__(self):
-        self.d = Selenium_Driver()
+class Downloader:
+    @staticmethod
+    def get_remisser():
+        with urlopen(f"{G0V_URL}/remisser.json", timeout=60) as response:
+            return json.load(response)
 
-    def get_remiss_amount(self):
-        response = self.d.get_json(REGERING_QUERY_URL + parameters(1, 1))
+    @staticmethod
+    def get_codes():
+        with urlopen(f"{G0V_URL}/api/codes.json", timeout=30) as response:
+            return json.load(response)
 
-        return response["TotalCount"]
-
-    def get_last_remisser(self, amount):
-        if amount > 1000:
-            page_size = 1000
-        else:
-            page_size = amount
-
-        page_amount = amount // 1000 + 1
-
-        last_remisser = []
-
-        for page_number in range(1, page_amount + 1):
-            last_remisser.extend(self.get_remisser_for_page(page_size, page_number))
-
-        return last_remisser
-
-    def get_remisser_for_page(self, page_size, page_number):
-        contents = self.d.get_json(
-            REGERING_QUERY_URL + parameters(page_size, page_number)
+    @staticmethod
+    def get_file(url, destination):
+        destination = Path(destination)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        partial = destination.with_suffix(".pdf.part")
+        request = Request(
+            url,
+            headers={
+                "User-Agent": "OpenRemiss/0.3 (+https://github.com/DinRiksdag/OpenRemiss)"
+            },
         )
-
-        return WebParser.get_remiss_list(contents)
-
-    def get_documents(self, remiss):
-        contents = self.d.get(remiss.url)
-        return WebParser.get_document_list(remiss.id, contents)
-
-    def get_file(self, file_url):
-        return self.d.get_file(file_url)
+        try:
+            with urlopen(request, timeout=60) as response, partial.open("wb") as output:
+                header = response.read(5)
+                if header != b"%PDF-":
+                    raise ValueError(f"Expected a PDF from {url}")
+                output.write(header)
+                copyfileobj(response, output)
+            partial.replace(destination)
+        finally:
+            partial.unlink(missing_ok=True)
+        return destination

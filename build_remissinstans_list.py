@@ -1,4 +1,5 @@
-import urllib.error
+from hashlib import sha256
+from pathlib import Path
 
 from database.document import Document
 from database.consultee import Consultee
@@ -6,7 +7,6 @@ from database.consultee import Consultee
 from service.downloader import Downloader
 from service.document_parser import DocumentParser
 from service.database import Database
-from service.file_manager import FileManager
 
 import sqlalchemy.exc
 
@@ -28,26 +28,21 @@ for document in saved_documents:
     elif RESET_DB:
         Consultee.query.filter(Consultee.consultee_list_id == document.id).delete()
 
-    filepath = f"tmp/{document.remiss_id}/{document.id}.pdf"
+    file_url = document.files[0].url
+    filename = sha256(file_url.encode()).hexdigest() + ".pdf"
+    filepath = Path("tmp") / str(document.remiss_id) / filename
 
-    if RESET_FILES or not FileManager.filepath_exists(filepath):
-        try:
-            tmp_filepath = Downloader().get_file(document.files[0].url)
-        except urllib.error.HTTPError:
-            print(f"404: File for Remiss {document.remiss_id} not found.")
-
-        if tmp_filepath is not None:
-            FileManager.move(tmp_filepath, filepath)
+    if RESET_FILES or not filepath.exists():
+        Downloader.get_file(file_url, filepath)
 
     if not RESET_OCR:
-        ocr_filepath = filepath.replace(".pdf", "-ocr.pdf")
+        ocr_filepath = filepath.with_name(filepath.stem + "-ocr.pdf")
 
-        if FileManager.filepath_exists(ocr_filepath):
+        if ocr_filepath.exists():
             print("Found an OCRed version, using it instead.")
             filepath = ocr_filepath
 
-    if FileManager.filepath_exists(filepath):
-        consultee_list = DocumentParser.extract_list(filepath)
+    consultee_list = DocumentParser.extract_list(str(filepath))
 
     if not consultee_list:
         print(f"Document for Remiss {document.remiss_id} was not extracted.")

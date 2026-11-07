@@ -7,19 +7,6 @@ from database.consultee import Consultee
 
 
 saved_remisser = Remiss.query.all()
-saved_answers = Answer.query.all()
-
-RESET_DB = True
-RESET_WIKIDATA = False
-# GOV_LIST = 'tmp/government_organisations.csv'
-# if RESET_WIKIDATA or FileManager.filepath_exists(GOV_LIST):
-#     gov_orgs = wikidata.get_government_organisations()
-#     pd.DataFrame(gov_orgs, columns=['organisation']).to_csv(GOV_LIST)
-
-# gov_list = pd.read_csv(GOV_LIST)['organisation'].to_list()
-
-# print(gov_list)
-
 print("II-1 Light cleaning file names...")
 for remiss_index, remiss in enumerate(saved_remisser, start=1):
     answers_for_remiss = Answer.query.filter_by(remiss_id=remiss.id).all()

@@ -116,7 +116,10 @@ class Cleaner(object):
 
     @staticmethod
     def is_consultee_list(filename):
-        return any(s in filename for s in ["Remissmissiv", "Remisslista", "Remiss av"])
+        return any(
+            marker in filename.casefold()
+            for marker in ["remissmissiv", "remisslista", "remissinstans", "remiss av"]
+        )
 
     @staticmethod
     def is_other_document(filename):

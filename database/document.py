@@ -11,7 +11,9 @@ class Document(Base):
     id = Column(Integer, primary_key=True)
     remiss_id = Column(Integer, ForeignKey("remiss.id"))
     remiss = relationship("Remiss", back_populates="other_documents")
-    files = relationship("File", back_populates="document")
+    files = relationship(
+        "File", back_populates="document", cascade="all, delete-orphan"
+    )
     type = Column(String)
 
     __mapper_args__ = {"polymorphic_identity": "document", "polymorphic_on": type}

@@ -6,8 +6,6 @@ readme = "README.md"
 # Keep the legacy dependency stack on a tested Python minor version.
 requires-python = ">=3.11,<3.12"
 dependencies = [
-    "beautifulsoup4==4.12.2",
-    "fake-useragent==1.1.3",
     "numpy>=1.23,<2",
     "ocrmypdf==14.1.0",
     "packaging==23.1",
@@ -20,12 +18,10 @@ dependencies = [
     "pikepdf>=8,<9",
     "pymupdf",
     "rapidfuzz==3.0.0",
-    "selenium==4.9.0",
     "sparqlwrapper==2.0.0",
     # Keep the existing ORM APIs until a separate SQLAlchemy upgrade.
     "sqlalchemy>=1.4.54,<2",
     "tabula-py==2.7.0",
-    "webdriver-manager==3.8.6",
 ]
 
 [dependency-groups]

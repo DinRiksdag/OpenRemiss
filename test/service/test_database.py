@@ -1,27 +1,9 @@
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-
-from database import base
 from database.answer import Answer
 from database.consultee import Consultee
 from database.consultee_list import ConsulteeList
 from database.file import File
 from database.remiss import Remiss
 from service.database import Database
-
-
-@pytest.fixture
-def session(monkeypatch):
-    engine = create_engine("sqlite:///:memory:")
-    base.Base.metadata.create_all(engine)
-    sessions = scoped_session(sessionmaker(bind=engine))
-    monkeypatch.setattr(base, "db_session", sessions)
-    try:
-        yield sessions()
-    finally:
-        sessions.remove()
-        engine.dispose()
 
 
 def test_query_returns_usable_query(session):

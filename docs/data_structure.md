@@ -1,13 +1,15 @@
 # What data does this script extract?
 
-The following objects are fetched and restructured:
+Consultation metadata and attachment links are imported from
+[g0v.se](https://g0v.se/remisser.json). PDFs are downloaded from the original
+URLs provided there. The following objects are restructured:
 - all the remissprocesses with the following information
   - title
   - department issuing (only the first one if there are several)
   - date of publication
   - a URL to its page on [regeringen.se](regeringen.se/remisser)
   - deadline (**not implemented**)
-  - diary number (**not implemented**)
+  - diary number, when available
 
 In addition, we attach the following documents to every process:
 - a consultee list

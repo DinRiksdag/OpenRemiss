@@ -10,7 +10,9 @@ class ConsulteeList(Document):
 
     id = Column(Integer, ForeignKey("document.id"), primary_key=True)
     remiss = relationship("Remiss", back_populates="consultees")
-    consultee_list = relationship("Consultee", back_populates="consultee_list")
+    consultee_list = relationship(
+        "Consultee", back_populates="consultee_list", cascade="all, delete-orphan"
+    )
 
     __mapper_args__ = {
         "polymorphic_identity": "consultee_list",

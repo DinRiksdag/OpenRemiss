@@ -1,6 +1,6 @@
 from service.database import Database
 from service.cleaner import Cleaner
-from service.file_manager import FileManager
+from pathlib import Path
 from database.consultee import Consultee
 
 import pandas as pd
@@ -28,7 +28,7 @@ import service.wikidata as wikidata
 
 RESET_WIKIDATA = True
 GOV_LIST = "tmp/government_organisations.csv"
-if RESET_WIKIDATA or not FileManager.filepath_exists(GOV_LIST):
+if RESET_WIKIDATA or not Path(GOV_LIST).exists():
     print("Downloading names for all Swedish public sector from Wikidata...")
     pd.DataFrame(
         wikidata.get_government_organisations(), columns=["organisation"]
