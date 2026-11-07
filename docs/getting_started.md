@@ -36,8 +36,8 @@ uv run python build_remissinstans_list.py
 
 Downloads invitation-list PDFs from the supplied URLs and extracts organisation
 names, using OCR when needed. PDFs, extracted text, and coordinates are cached
-under `tmp/`.
-Completed extractions are saved as the command progresses and skipped on later runs.
+under `tmp/`. Results are saved every 50 documents or 30 seconds, and on exit or
+interruption. Completed extractions are skipped on later runs.
 Non-PDF files are logged and recorded as skipped.
 
 ### Clean organisation names

@@ -11,6 +11,7 @@ from service.document_parser import DocumentParser
 from service.downloader import Downloader
 from service import downloader
 from service.storage import load, save
+import build_remissinstans_list as pipeline
 
 
 def invitation(url):
@@ -219,3 +220,78 @@ def test_extraction_logs_progress_and_unrecognised_lists(
         "failed",
         "complete",
     ]
+
+
+def test_parquet_writes_are_batched(data_dir, tmp_path, monkeypatch):
+    documents = [invitation(f"https://example.org/{i}.pdf") for i in range(5)]
+    save(Document, documents, data_dir)
+    for doc in documents:
+        (tmp_path / (sha256(doc.url.encode()).hexdigest() + ".pdf")).write_bytes(
+            b"%PDF-test"
+        )
+    monkeypatch.setattr(
+        DocumentParser, "extract_list", lambda path: ["Barnombudsmannen"]
+    )
+    writes = []
+
+    def record_save(model, rows, directory):
+        writes.append((model, len(rows)))
+        save(model, rows, directory)
+
+    monkeypatch.setattr(pipeline, "save", record_save)
+    extract_lists(data_dir, tmp_path, checkpoint_every=2)
+    assert [count for model, count in writes if model is Consultee] == [2, 4, 5]
+    assert sum(model is Document for model, _ in writes) == 3
+    assert all(doc.extraction_status == "complete" for doc in load(Document, data_dir))
+
+
+def test_keyboard_interrupt_flushes_pending_results(data_dir, tmp_path, monkeypatch):
+    documents = [invitation(f"https://example.org/{i}.pdf") for i in range(2)]
+    save(Document, documents, data_dir)
+    for doc in documents:
+        (tmp_path / (sha256(doc.url.encode()).hexdigest() + ".pdf")).write_bytes(
+            b"%PDF-test"
+        )
+    calls = []
+
+    def extract(path):
+        calls.append(path)
+        if len(calls) == 2:
+            raise KeyboardInterrupt()
+        return ["Barnombudsmannen"]
+
+    monkeypatch.setattr(DocumentParser, "extract_list", extract)
+    with pytest.raises(KeyboardInterrupt):
+        extract_lists(data_dir, tmp_path)
+    assert [row.extraction_status for row in load(Document, data_dir)] == [
+        "complete",
+        "pending",
+    ]
+    assert len(load(Consultee, data_dir)) == 1
+
+
+def test_elapsed_time_triggers_a_checkpoint(data_dir, tmp_path, monkeypatch):
+    documents = [invitation(f"https://example.org/{i}.pdf") for i in range(3)]
+    save(Document, documents, data_dir)
+    for doc in documents:
+        (tmp_path / (sha256(doc.url.encode()).hexdigest() + ".pdf")).write_bytes(
+            b"%PDF-test"
+        )
+    clock = [0]
+    monkeypatch.setattr(pipeline, "monotonic", lambda: clock[0])
+
+    def extract(path):
+        clock[0] += 20
+        return ["Barnombudsmannen"]
+
+    checkpoints = []
+
+    def record_save(model, rows, directory):
+        if model is Consultee:
+            checkpoints.append(len(rows))
+        save(model, rows, directory)
+
+    monkeypatch.setattr(DocumentParser, "extract_list", extract)
+    monkeypatch.setattr(pipeline, "save", record_save)
+    extract_lists(data_dir, tmp_path)
+    assert checkpoints == [2, 3]
