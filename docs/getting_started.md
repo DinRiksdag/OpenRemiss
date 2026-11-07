@@ -54,6 +54,18 @@ uv run python clean_data.py
 Cleans names inferred from response attachment names and invitation lists.
 Matching is heuristic and may require manual review.
 
+For an optional reference comparison, put [Myndighetsdata's](https://github.com/civictechsweden/myndighetsdata) `scb.json`, `esv.json`,
+and `wd.json` in a directory as `myndighetsdata-{source}.json`, then run:
+
+```shell
+uv run python audit_names.py --reference-dir path/to/references
+```
+
+The audit writes review suggestions under `tmp/quality_audit/matching/` without
+changing names. Optional `wikidata-municipalities.csv` and
+`wikidata-organisations.csv` snapshots use semicolon-separated `item`, `label`,
+`number`, and `alias` columns. Aliases and fuzzy matches always require review.
+
 Commands show progress with tqdm. Detailed logs and separate warning/error logs
 are saved under `tmp/logs/`.
 
