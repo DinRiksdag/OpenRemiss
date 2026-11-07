@@ -6,6 +6,10 @@ from urllib.request import Request, urlopen
 G0V_URL = "https://g0v.se"
 
 
+class UnsupportedDocumentError(ValueError):
+    """The downloaded document is not a PDF."""
+
+
 class Downloader:
     @staticmethod
     def get_remisser():
@@ -32,6 +36,13 @@ class Downloader:
             with urlopen(request, timeout=60) as response, partial.open("wb") as output:
                 header = response.read(5)
                 if header != b"%PDF-":
+                    if (
+                        header.startswith(b"PK\x03\x04")
+                        or header == b"\xd0\xcf\x11\xe0\xa1"
+                    ):
+                        raise UnsupportedDocumentError(
+                            f"Unsupported non-PDF document from {url}"
+                        )
                     raise ValueError(f"Expected a PDF from {url}")
                 output.write(header)
                 copyfileobj(response, output)

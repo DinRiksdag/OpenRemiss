@@ -175,3 +175,44 @@ def test_download_command_imports_from_g0v(data_dir, item, monkeypatch):
 
     assert len(load(Remiss, data_dir)) == 1
     assert len(load(Document, data_dir)) == 3
+
+
+@pytest.mark.parametrize(
+    "label,expected",
+    [
+        ("Boverket.PDF", "Boverket"),
+        ("Boverket.pdf", "Boverket"),
+        ("Boverket.PdF (pDf 950 kB)", "Boverket"),
+        ("Sveriges PDF-förening (PDF 10 kB)", "Sveriges PDF-förening"),
+    ],
+)
+def test_pdf_name_cleanup_is_case_insensitive(data_dir, item, label, expected):
+    item["attachments"] = [{"name": label, "url": "/response.pdf"}]
+    sync_remisser([item], CODES, data_dir)
+    assert load(Document, data_dir)[0].name == expected
+
+
+@pytest.mark.parametrize(
+    "name,kind",
+    [
+        ("PROMEMORIA.PDF (PDF 20 kB)", "other"),
+        ("remissinstanser.PDF (PDF 20 kB)", "consultee_list"),
+    ],
+)
+def test_document_classification_is_case_insensitive(data_dir, item, name, kind):
+    item["attachments"] = [{"name": name, "url": "/attachment.pdf"}]
+    sync_remisser([item], CODES, data_dir)
+    assert load(Document, data_dir)[0].kind == kind
+
+
+def test_refresh_preserves_skipped_status(data_dir, item):
+    sync_remisser([item], CODES, data_dir)
+    documents = load(Document, data_dir)
+    documents[0].extraction_status = "skipped"
+    documents[0].extraction_error = "Unsupported non-PDF document"
+    save(Document, documents, data_dir)
+    sync_remisser([item], CODES, data_dir)
+    assert load(Document, data_dir)[0].extraction_status == "skipped"
+    assert (
+        load(Document, data_dir)[0].extraction_error == "Unsupported non-PDF document"
+    )

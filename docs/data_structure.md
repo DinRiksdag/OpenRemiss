@@ -10,7 +10,7 @@ with the Pydantic models in `models.py` and read or written through pandas.
 | `consultees.parquet` | Invited organisation names and cleaned names | `remiss_url`, `document_url` identifies the invitation list |
 
 Document kinds are `answer`, `consultee_list`, and `other`. Invitation lists
-have an extraction status of `pending`, `complete`, or `failed`; other
+have an extraction status of `pending`, `complete`, `failed`, or `skipped`; other
 documents have no extraction status. Original names remain available alongside
 cleaned names.
 

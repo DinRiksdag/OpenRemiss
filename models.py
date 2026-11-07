@@ -20,7 +20,7 @@ class Document(BaseModel):
     name: str
     kind: DocumentKind
     organisation: str | None = None
-    extraction_status: Literal["pending", "complete", "failed"] | None = None
+    extraction_status: Literal["pending", "complete", "failed", "skipped"] | None = None
     extraction_error: str | None = None
 
 

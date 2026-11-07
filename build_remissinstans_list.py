@@ -1,9 +1,12 @@
 from hashlib import sha256
+import logging
 
 from models import Consultee, Document
-from service.downloader import Downloader
+from service.downloader import Downloader, UnsupportedDocumentError
 from service.document_parser import DocumentParser
 from service.storage import DATA_DIR, load, save
+
+logger = logging.getLogger(__name__)
 
 
 def main(data_dir=DATA_DIR, cache_dir=DATA_DIR.parent / "tmp", reset=False):
@@ -12,7 +15,7 @@ def main(data_dir=DATA_DIR, cache_dir=DATA_DIR.parent / "tmp", reset=False):
     for document in documents:
         if document.kind != "consultee_list":
             continue
-        if document.extraction_status == "complete" and not reset:
+        if document.extraction_status in ("complete", "skipped") and not reset:
             continue
 
         filepath = cache_dir / (sha256(document.url.encode()).hexdigest() + ".pdf")
@@ -22,6 +25,12 @@ def main(data_dir=DATA_DIR, cache_dir=DATA_DIR.parent / "tmp", reset=False):
                 Downloader.get_file(document.url, filepath)
             source = ocr_filepath if ocr_filepath.exists() else filepath
             names = DocumentParser.extract_list(str(source))
+        except UnsupportedDocumentError as error:
+            document.extraction_status = "skipped"
+            document.extraction_error = str(error)
+            logger.warning("Skipping non-PDF invitation list: %s", document.url)
+            save(Document, documents, data_dir)
+            continue
         except Exception as error:
             document.extraction_status = "failed"
             document.extraction_error = str(error)

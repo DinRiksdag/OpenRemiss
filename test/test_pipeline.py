@@ -1,4 +1,5 @@
 from hashlib import sha256
+from io import BytesIO
 
 import pytest
 
@@ -7,6 +8,7 @@ from clean_data import main as clean_names
 from models import Consultee, Document
 from service.document_parser import DocumentParser
 from service.downloader import Downloader
+from service import downloader
 from service.storage import load, save
 
 
@@ -136,3 +138,54 @@ def test_cleaning_preserves_source_names_and_is_repeatable(data_dir):
     assert first_result[0].name == "1. Lunds universitet"
     assert load(Consultee, data_dir)[0].cleaned_name == "Lunds universitet"
     assert load(Consultee, data_dir)[0].name == consultees[0].name
+
+
+def test_non_pdf_invitations_are_logged_skipped_and_processing_continues(
+    data_dir, tmp_path, monkeypatch, caplog
+):
+    documents = [
+        invitation("https://example.org/first.docx"),
+        invitation("https://example.org/second.DOCX"),
+        invitation("https://example.org/mislabelled.docx"),
+    ]
+    save(Document, documents, data_dir)
+    requests = []
+
+    def fetch(request, timeout):
+        requests.append(request.full_url)
+        payload = (
+            b"%PDF-test" if request.full_url == documents[2].url else b"PK\x03\x04word"
+        )
+        return BytesIO(payload)
+
+    monkeypatch.setattr(downloader, "urlopen", fetch)
+    monkeypatch.setattr(
+        DocumentParser, "extract_list", lambda path: ["Barnombudsmannen"]
+    )
+    extract_lists(data_dir, tmp_path)
+    stored = load(Document, data_dir)
+    assert [doc.extraction_status for doc in stored] == [
+        "skipped",
+        "skipped",
+        "complete",
+    ]
+    assert all(
+        doc.extraction_error is not None
+        and "Unsupported non-PDF" in doc.extraction_error
+        for doc in stored[:2]
+    )
+    assert all(doc.url in caplog.text for doc in stored[:2])
+    assert [row.document_url for row in load(Consultee, data_dir)] == [documents[2].url]
+    assert len(list(tmp_path.glob("*.pdf"))) == 1
+    extract_lists(data_dir, tmp_path)
+    assert requests == [doc.url for doc in documents]
+
+
+def test_html_error_response_is_not_silently_skipped(data_dir, tmp_path, monkeypatch):
+    save(Document, [invitation("https://example.org/list.pdf")], data_dir)
+    monkeypatch.setattr(
+        downloader, "urlopen", lambda request, timeout: BytesIO(b"<html>error</html>")
+    )
+    with pytest.raises(ValueError, match="Expected a PDF"):
+        extract_lists(data_dir, tmp_path)
+    assert load(Document, data_dir)[0].extraction_status == "failed"

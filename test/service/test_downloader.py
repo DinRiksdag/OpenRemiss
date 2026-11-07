@@ -6,7 +6,7 @@ from urllib.error import HTTPError
 import pytest
 
 from service import downloader
-from service.downloader import Downloader
+from service.downloader import Downloader, UnsupportedDocumentError
 
 
 @pytest.mark.parametrize(
@@ -87,4 +87,16 @@ def test_interrupted_download_does_not_leave_partial_file(monkeypatch, tmp_path)
     )
     with pytest.raises(OSError, match="Connection interrupted"):
         Downloader.get_file("https://www.regeringen.se/list.pdf", tmp_path / "list.pdf")
+    assert list(tmp_path.iterdir()) == []
+
+
+@pytest.mark.parametrize(
+    "payload", [b"PK\x03\x04office document", b"\xd0\xcf\x11\xe0\xa1legacy document"]
+)
+def test_office_documents_are_reported_as_unsupported(monkeypatch, tmp_path, payload):
+    monkeypatch.setattr(
+        downloader, "urlopen", lambda request, timeout: BytesIO(payload)
+    )
+    with pytest.raises(UnsupportedDocumentError, match="Unsupported non-PDF"):
+        Downloader.get_file("https://example.org/list.DOCX", tmp_path / "list.pdf")
     assert list(tmp_path.iterdir()) == []

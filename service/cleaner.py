@@ -22,14 +22,14 @@ class Cleaner:
     @staticmethod
     def is_other_document(filename):
         return not Cleaner.is_consultee_list(filename) and any(
-            marker in filename
+            marker in filename.casefold()
             for marker in [
-                "Remissammanställning",
-                "Remissbrev",
-                "Promemoria",
-                "Remiss-PM",
-                "Remiss av",
-                "Inbjudan",
+                "remissammanställning",
+                "remissbrev",
+                "promemoria",
+                "remiss-pm",
+                "remiss av",
+                "inbjudan",
             ]
         )
 

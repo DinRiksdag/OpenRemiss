@@ -45,6 +45,7 @@ def sync_remisser(items, codes, data_dir=DATA_DIR):
             name = re.sub(
                 r"\s*\(pdf\b[^)]*\)\s*$", "", attachment["name"], flags=re.I
             ).strip()
+            name = re.sub(r"\.pdf$", "", name, flags=re.I).strip()
             kind = document_type(name)
             document = Document(
                 remiss_url=url,
