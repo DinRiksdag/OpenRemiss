@@ -69,6 +69,16 @@ changing names. Optional `wikidata-municipalities.csv` and
 Commands show progress with tqdm. Detailed logs and separate warning/error logs
 are saved under `tmp/logs/`.
 
+Export the three datasets and respondent/consultee pivot-table leaderboards:
+
+```shell
+uv run python scripts/export_spreadsheet.py
+```
+
+The workbook is saved to `outputs/OpenRemiss.xlsx`. Use `--output` to choose
+another path. Rankings count each organisation once per consultation; document
+and list-entry totals are shown separately.
+
 See [the datasets and examples](data_structure.md) for analysing the results.
 
 ## Development

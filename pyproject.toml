@@ -47,6 +47,6 @@ python-version = "3.15"
 
 [tool.ty.src]
 include = [
-    "models.py", "service", "test",
+    "models.py", "service", "test", "scripts",
     "download_data.py", "build_remissinstans_list.py", "clean_data.py", "audit_names.py",
 ]
